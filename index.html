@@ -1,672 +1,2452 @@
 ---
 layout: null
 ---
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Video Gallery</title>
     
+    <link rel="canonical" id="canonicalTag" href="">
+    <meta name="description" id="metaDescription" content="">
+    <script type="application/ld+json" id="breadcrumbSchema"></script>
     
-    <script>
-    (function() {
-        var hostname = location.hostname;
-        var parts = hostname.split(".");
-        var fullName = parts[0];
-        if (fullName.toLowerCase() === "www") fullName = parts[1] || fullName;
-        var formatText = function(str) {
-            return str.replace(/[-_]/g, " ").replace(/\+/g, " ").replace(/\b\w/g, function(c) { return c.toUpperCase(); });
-        };
-        var displayDomain = formatText(fullName);
-        document.title = displayDomain + " - Beautiful Girls Photo Gallery";
-        var metaDesc = document.querySelector("meta[name=\"description\"]") || document.createElement("meta");
-        metaDesc.name = "description";
-        metaDesc.content = displayDomain + " - Stunning collection of beautiful girls photography from around the world.";
-        if (!metaDesc.parentNode) document.head.appendChild(metaDesc);
-        var metaAuthor = document.querySelector("meta[name=\"author\"]") || document.createElement("meta");
-        metaAuthor.name = "author";
-        metaAuthor.content = displayDomain;
-        if (!metaAuthor.parentNode) document.head.appendChild(metaAuthor);
-        var canonical = document.querySelector("link[rel=\"canonical\"]") || document.createElement("link");
-        canonical.setAttribute("rel", "canonical");
-        canonical.setAttribute("href", location.href);
-        if (!canonical.parentNode) document.head.appendChild(canonical);
-        var schemaData = {"@context":"https://schema.org","@type":"WebSite","name":displayDomain,"description":"Beautiful girls photo gallery from around the world","url":location.origin};
-        var schemaScript = document.createElement("script");
-        schemaScript.type = "application/ld+json";
-        schemaScript.textContent = JSON.stringify(schemaData);
-        document.head.appendChild(schemaScript);
-    })();
-    </script>
-
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-
+    <meta name="juicyads-site-verification" content="c6c8b2a602b85c8fa716d142917dc5fb">
+    
     <style>
-        /* ===== RESET & BASE ===== */
-        *,*::before,*::after{box-sizing:border-box}
-        html{overflow-x:hidden;background:var(--bg-color)}
-        body{
-            width:100%;min-width:320px;max-width:100%;margin:0;padding:0;
-            background:var(--bg-color);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-            color:var(--text-color);line-height:1.3;-webkit-font-smoothing:antialiased;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #f0f0f0 0%, #e8e8e8 100%);
+            background-attachment: fixed;
+            padding: 8px;
+            padding-top: 86px;
+            min-height: 100vh;
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
+            perspective: 2000px;
         }
-
-        /* Light / Dark Theme Variables */
-        :root {
-            --bg-color: #050505;
-            --header-bg: rgba(5,5,5,.97);
-            --text-color: #fff;
-            --border-color: rgba(255,255,255,.08);
-            --menu-bg: #1a1a1a;
-            --menu-border: #333;
-            --menu-text: #ccc;
-            --menu-hover-bg: #2a2a2a;
-            --card-bg: #0a0a0a;
-            --ad-bg: #080808;
-            --desc-color: rgba(255,255,255,.65);
-            --btn-bg: rgba(255,255,255,.05);
-            --btn-border: rgba(255,255,255,.1);
-            --icon-fill: #fff;
-            --icon-stroke: #fff;
-            --section-title: #fff;
-            --featured-title: #ff6b6b;
-        }
-
-        body.light-mode {
-            --bg-color: #f5f5f7;
-            --header-bg: rgba(245,245,247,.97);
-            --text-color: #1d1d1f;
-            --border-color: rgba(0,0,0,.08);
-            --menu-bg: #ffffff;
-            --menu-border: #e5e5e5;
-            --menu-text: #1d1d1f;
-            --menu-hover-bg: #f0f0f0;
-            --card-bg: #ffffff;
-            --ad-bg: #eaeaea;
-            --desc-color: rgba(0,0,0,.55);
-            --btn-bg: rgba(0,0,0,.05);
-            --btn-border: rgba(0,0,0,.1);
-            --icon-fill: #1d1d1f;
-            --icon-stroke: #1d1d1f;
-            --section-title: #1d1d1f;
-            --featured-title: #d32f2f;
-        }
-
-        /* ===== HEADER ===== */
-        .site-header{
-            width:100%;position:fixed;top:0;left:0;z-index:1000;
-            background:var(--header-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-            border-bottom:1px solid var(--border-color);
-            padding:12px 12px;
-        }
-        .header-inner{
-            display:flex;align-items:center;gap:10px;max-width:1280px;margin:0 auto;
-        }
-        .site-avatar{flex-shrink:0;line-height:0}
-        .site-avatar svg{width:34px;height:34px}
-        .site-title{
-            flex:1;font-size:16px;font-weight:700;letter-spacing:.3px;
-            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-color);
-        }
-        .menu-btn, .theme-btn{
-            width:42px;height:42px;flex-shrink:0;
-            background:var(--btn-bg);border:1px solid var(--btn-border);
-            cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;
-            border-radius:50%;transition:all .2s ease;
-        }
-        .menu-btn:active, .theme-btn:active{background:rgba(255,255,255,.12);transform:scale(.95)}
-        .menu-btn svg, .theme-btn svg{width:22px;height:22px;stroke:var(--icon-stroke);fill:none;stroke-width:2;stroke-linecap:round}
-
-        .slide-menu{
-            display:none;position:fixed;top:58px;right:8px;z-index:999;
-            background:var(--menu-bg);border:1px solid var(--menu-border);border-radius:14px;padding:6px;
-            min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.6);
-        }
-        .slide-menu.open{display:block}
-        .slide-menu ul{list-style:none;margin:0;padding:0}
-        .slide-menu li+li{border-top:1px solid rgba(255,255,255,.04)}
-        .slide-menu a{
-            display:flex;align-items:center;gap:8px;padding:13px 16px;color:var(--menu-text);text-decoration:none;
-            font-size:15px;font-weight:500;border-radius:10px;transition:all .15s ease;
-        }
-        .slide-menu a svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
-        .slide-menu a:active{background:var(--menu-hover-bg);color:var(--text-color)}
-
-        /* ===== DESKTOP NAV (hidden di mobile) ===== */
-        .desktop-nav{display:none}
-        .desktop-nav a{
-            display:inline-flex;align-items:center;gap:6px;
-        }
-        .desktop-nav a svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;}
-
-        /* ===== AD CONTAINER ===== */
-        .ad-box{
-            display:flex;justify-content:center;align-items:center;
-            margin:0 auto;max-width:100%;overflow:hidden;
-            background:var(--ad-bg);min-height:50px;
-        }
-        .ad-box ins{max-width:100%}
         
-        /* Responsive ad visibility */
-        .ad-desktop{display:none}
-        .ad-mobile{display:flex}
-        .ad-both{display:flex}
-
-        /* ===== AD BREAK (top & bottom) ===== */
-        .ad-break{
-            padding:12px 0;background:var(--ad-bg);
-            border-top:1px solid var(--border-color);
-            border-bottom:1px solid var(--border-color);
+        /* ===== FLOATING HEADER — 3D ===== */
+        .floating-header {
+            position: fixed;
+            top: calc(8px + env(safe-area-inset-top));
+            left: 8px;
+            right: 8px;
+            height: 60px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f6f0 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 16px;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 0 rgba(0,0,0,.05) inset,
+                0 10px 20px rgba(0,0,0,.12),
+                0 4px 8px rgba(0,0,0,.06),
+                0 1px 2px rgba(0,0,0,.04);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            gap: 12px;
+            transition: box-shadow .3s, background .3s, transform .3s;
+            transform-style: preserve-3d;
         }
-        .ad-break:first-child{margin-top:58px}
-
-        /* ===== AD INLINE (antar section) ===== */
-        .ad-inline{
-            margin:24px 0;padding:12px 0;
-            background:var(--ad-bg);
-            border-top:1px solid var(--border-color);
-            border-bottom:1px solid var(--border-color);
+        .floating-header.scrolled {
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 0 rgba(0,0,0,.06) inset,
+                0 14px 28px rgba(0,0,0,.16),
+                0 6px 12px rgba(0,0,0,.08),
+                0 2px 4px rgba(0,0,0,.05);
         }
-
-        /* ===== MAIN LAYOUT ===== */
-        .main-layout{
-            display:flex;flex-direction:column;gap:0;width:100%;max-width:1280px;
-            margin:0 auto;padding:0;
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            min-width: 0;
+            flex: 1;
+            justify-content: center;
         }
-        .content-area{flex:1;min-width:0;padding:0;width:100%}
-
-        .sidebar{display:none}
-        .sticky-ad{position:sticky;top:80px;display:flex;justify-content:center}
-
-        /* ============================
-           GV2 GALLERY SYSTEM
-           ============================ */
-        .gv2-section{margin:20px 0}
-        .gv2-section:first-child{margin-top:4px}
-        .gv2-title{padding:0 8px;margin:0 auto 10px;max-width:1400px}
-        .gv2-title h2{
-            margin:0;font-size:19px;font-weight:800;color:var(--section-title);letter-spacing:.2px;
-            display:flex;align-items:center;gap:8px;
+        .header-brand .brand-mark {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.6) inset,
+                0 -2px 3px rgba(0,0,0,.25) inset,
+                0 4px 8px rgba(122,92,30,.4),
+                0 2px 3px rgba(0,0,0,.15);
+            transform: translateZ(0);
+            transition: transform .3s;
         }
-        .gv2-title h2 svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;}
-        .gv2-featured-title h2{color:var(--featured-title)}
-        .gv2-grid{max-width:1400px;margin:auto;padding:0;gap:0}
-
-        /* === MOBILE: 1 KOLOM FULLWIDTH === */
-        .gv2-featured{display:grid;grid-template-columns:1fr;gap:4px}
-        .gv2-latest{display:grid;grid-template-columns:1fr;gap:4px}
-        .gv2-stories{display:grid;grid-template-columns:1fr;gap:4px}
-        .gv2-tutorials{display:grid;grid-template-columns:1fr;gap:4px}
-        .gv2-archive{display:grid;grid-template-columns:1fr;gap:4px}
-
-        .gv2-featured-big,
-        .gv2-featured-small{
-            grid-column:auto;grid-row:auto;
+        .header-brand:hover .brand-mark {
+            transform: translateY(-2px) rotateX(-10deg);
         }
-
-        /* Card */
-        .gv2-card{
-            position:relative;overflow:hidden;border-radius:0;background:var(--card-bg);
-            -webkit-tap-highlight-color:transparent;
+        .header-brand .brand-mark::after {
+            content: '';
+            width: 0; height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 11px solid #fff;
+            margin-left: 3px;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,.3));
         }
-        .gv2-card-link{
-            display:block;width:100%;
+        .header-brand .brand-text {
+            color: #5C4415;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 -1px 0 rgba(0,0,0,.08);
         }
-        .gv2-card-link img{
-            width:100%;height:100%;object-fit:cover;display:block;
-            transition:transform .3s ease;aspect-ratio:16/9;
+        
+        .hamburger-btn {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            padding: 0;
+            flex-shrink: 0;
+            transition: all .25s;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.06) inset,
+                0 3px 6px rgba(0,0,0,.1),
+                0 1px 2px rgba(0,0,0,.06);
         }
-        .gv2-card-link:active img{transform:scale(1.02)}
-
-        /* Card body (di luar link) - disembunyikan karena tidak ada judul */
-        .gv2-card-body{
-            display:none;
+        .hamburger-btn:hover {
+            background: linear-gradient(180deg, #FDF6E0 0%, #F5EEDC 100%);
+            transform: translateY(-1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.08) inset,
+                0 5px 10px rgba(122,92,30,.2),
+                0 2px 4px rgba(0,0,0,.08);
         }
-        .gv2-card-title-link{
-            display:none;
+        .hamburger-btn:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.5) inset,
+                0 2px 3px rgba(0,0,0,.15) inset,
+                0 1px 2px rgba(0,0,0,.08);
         }
-        .gv2-card-desc{
-            display:none;
+        .hamburger-btn span {
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: linear-gradient(180deg, #B8860B 0%, #7A5C1E 100%);
+            border-radius: 2px;
+            transition: all .3s;
+            box-shadow: 0 1px 1px rgba(0,0,0,.2);
         }
-
-        .excerpt{display:none}
-
-        /* ============================
-           TABLET (min-width:600px)
-           ============================ */
-        @media(min-width:600px){
-            .ad-desktop{display:flex}
-            .ad-mobile{display:none}
-            .ad-both{display:flex}
-
-            .site-header{padding:12px 16px}
-            .site-title{font-size:17px}
-            .ad-break{padding:16px 0}
-            .ad-break:first-child{margin-top:60px}
-            .ad-inline{margin:28px 0;padding:14px 0}
-            .gv2-title{padding:0 12px}
-            .gv2-title h2{font-size:22px}
-            .gv2-grid{padding:0 8px;gap:6px}
-
-            .gv2-featured{grid-template-columns:1fr 1fr;gap:6px}
-            .gv2-featured-big{grid-column:1 / -1}
-            .gv2-latest{grid-template-columns:1fr 1fr;gap:6px}
-            .gv2-stories{grid-template-columns:1fr 1fr;gap:6px}
-            .gv2-tutorials{grid-template-columns:1fr 1fr;gap:6px}
-            .gv2-archive{grid-template-columns:1fr 1fr;gap:6px}
-
-            .gv2-card{border-radius:6px}
-            .gv2-card-link img{aspect-ratio:16/9}
+        
+        .header-slot {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
         }
-
-        /* ============================
-           DESKTOP (min-width:900px)
-           ============================ */
-        @media(min-width:900px){
-            body{max-width:1280px;margin:0 auto}
-
-            .site-header{
-                left:50%;transform:translateX(-50%);max-width:1280px;
-                padding:12px 20px;
+        
+        /* ===== SIDE MENU 3D ===== */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.4);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility .3s;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            max-width: 82vw;
+            height: 100vh;
+            height: 100dvh;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
+            z-index: 1002;
+            transform: translateX(-100%) rotateY(15deg);
+            transform-origin: left center;
+            transition: transform .4s cubic-bezier(.2,.8,.2,1);
+            box-shadow:
+                8px 0 24px rgba(0,0,0,.15),
+                4px 0 10px rgba(0,0,0,.08),
+                1px 0 0 rgba(255,255,255,.8) inset;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+        }
+        .side-menu.open {
+            transform: translateX(0) rotateY(0deg);
+        }
+        
+        .side-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 18px 16px;
+            border-bottom: 1px solid rgba(0,0,0,.06);
+            gap: 10px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
+            box-shadow: 0 1px 0 rgba(255,255,255,1) inset, 0 -1px 0 rgba(0,0,0,.03) inset;
+        }
+        .side-menu-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+        }
+        .side-menu-brand .brand-mark {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.6) inset,
+                0 -1px 2px rgba(0,0,0,.2) inset,
+                0 3px 6px rgba(122,92,30,.35);
+        }
+        .side-menu-brand .brand-mark::after {
+            content: '';
+            width: 0; height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 9px solid #fff;
+            margin-left: 2px;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,.3));
+        }
+        .side-menu-brand .brand-text {
+            color: #5C4415;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        
+        .side-menu-close {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 9px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all .25s;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.06) inset,
+                0 3px 6px rgba(0,0,0,.1);
+        }
+        .side-menu-close:hover {
+            background: linear-gradient(180deg, #FDF6E0 0%, #F5EEDC 100%);
+            transform: translateY(-1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.08) inset,
+                0 5px 10px rgba(122,92,30,.2);
+        }
+        .side-menu-close:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.5) inset,
+                0 2px 4px rgba(0,0,0,.15) inset;
+        }
+        .side-menu-close::before,
+        .side-menu-close::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 2.5px;
+            background: linear-gradient(180deg, #B8860B 0%, #7A5C1E 100%);
+            border-radius: 2px;
+            box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        }
+        .side-menu-close::before { transform: rotate(45deg); }
+        .side-menu-close::after { transform: rotate(-45deg); }
+        
+        .side-menu ul {
+            list-style: none;
+            padding: 14px 12px;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .side-menu ul li { margin: 0 0 4px 0; }
+        .side-menu ul li a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
+            border: 1px solid rgba(0,0,0,.05);
+            transition: all .25s;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.04) inset,
+                0 2px 4px rgba(0,0,0,.05);
+            position: relative;
+        }
+        .side-menu ul li a:hover,
+        .side-menu ul li a:focus {
+            background: linear-gradient(180deg, #FDF6E0 0%, #F5EEDC 100%);
+            color: #5C4415;
+            transform: translateX(4px) translateY(-1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.08) inset,
+                0 6px 12px rgba(122,92,30,.2),
+                0 2px 4px rgba(0,0,0,.08);
+            outline: none;
+            border-color: rgba(166,124,46,.3);
+        }
+        .side-menu ul li a:active {
+            transform: translateX(4px) translateY(1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.5) inset,
+                0 2px 4px rgba(0,0,0,.12) inset;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: clamp(10px, 2vw, 12px);
+            margin: 8px 0 20px;
+            padding: 0 12px;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .ad-container {
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 12px;
+            margin-bottom: 20px; padding: 10px; width: 100%;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.04) inset,
+                0 4px 8px rgba(0,0,0,.06);
+        }
+        .ad-container img, .ad-container iframe, .ad-container ins {
+            max-width: 100%; max-height: 100%; display: block;
+        }
+        .ad-top-mobile { display: flex; min-height: 90px; }
+        .ad-top-desktop { display: none; min-height: 120px; }
+        
+        .ad-infeed {
+            position: relative;
+            aspect-ratio: 300/262;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 300px;
+            justify-self: center;
+            margin: 0 auto;
+            grid-column: 1 / -1;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.04) inset,
+                0 6px 12px rgba(0,0,0,.08);
+        }
+        .ad-infeed img, .ad-infeed iframe, .ad-infeed ins {
+            max-width: 100%; max-height: 100%; display: block;
+            border-radius: 14px;
+        }
+        
+        .ad-before-tags-mobile { display: flex; min-height: 80px; margin-top: 30px; }
+        .ad-before-tags-desktop { display: none; min-height: 100px; margin-top: 30px; }
+        
+        .breadcrumb {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+            padding: 10px 14px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 12px;
+            margin-bottom: 20px; font-size: clamp(9px, 2vw, 11px);
+            overflow-x: auto; white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.04) inset,
+                0 3px 6px rgba(0,0,0,.06);
+        }
+        .breadcrumb::-webkit-scrollbar { height: 4px; }
+        .breadcrumb::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+        .breadcrumb-link { text-decoration: none; color: #666; cursor: pointer; transition: color .2s; }
+        .breadcrumb-link:hover { color: #7A5C1E; }
+        .breadcrumb-separator { color: #bbb; font-size: 10px; }
+        .breadcrumb-current {
+            color: #5C4415; font-weight: 700;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        .breadcrumb-tag {
+            display: inline-block; text-decoration: none; color: #555;
+            font-size: clamp(8px, 1.5vw, 10px); font-weight: 600;
+            padding: 4px 10px; border-radius: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            cursor: pointer;
+            word-break: break-word;
+            transition: all .25s;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 2px 3px rgba(0,0,0,.06);
+        }
+        .breadcrumb-tag:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 4px 6px rgba(122,92,30,.18);
+            border-color: rgba(166,124,46,.4);
+            color: #5C4415;
+        }
+        .breadcrumb-tag.active-tag {
+            background: linear-gradient(180deg, #C9A961 0%, #A67C2E 100%);
+            color: #fff;
+            border-color: #7A5C1E;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.4) inset,
+                0 -1px 2px rgba(0,0,0,.15) inset,
+                0 3px 6px rgba(122,92,30,.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,.3);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            perspective: 1200px;
+        }
+        .grid-item {
+            position: relative;
+            aspect-ratio: 300/262;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            border: 1px solid rgba(0,0,0,.08);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 3px rgba(0,0,0,.06) inset,
+                0 8px 16px rgba(0,0,0,.12),
+                0 4px 8px rgba(0,0,0,.08),
+                0 2px 4px rgba(0,0,0,.05);
+            -webkit-tap-highlight-color: transparent;
+            transform-style: preserve-3d;
+        }
+        .grid-item:hover {
+            border-color: rgba(166,124,46,.5);
+            transform: translateY(-8px) rotateX(3deg) rotateY(-2deg) scale(1.02);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 3px rgba(0,0,0,.08) inset,
+                0 20px 32px rgba(122,92,30,.28),
+                0 10px 16px rgba(0,0,0,.14),
+                0 4px 6px rgba(0,0,0,.08);
+        }
+        .grid-item:active {
+            transform: translateY(-2px) rotateX(1deg) scale(1);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 4px 8px rgba(0,0,0,.15);
+        }
+        .grid-item.highlight { animation: highlightPulse 2s ease; }
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow:
+                    0 1px 0 rgba(255,255,255,1) inset,
+                    0 -1px 3px rgba(0,0,0,.06) inset,
+                    0 8px 16px rgba(0,0,0,.12),
+                    0 4px 8px rgba(0,0,0,.08);
+                transform: translateY(0) scale(1);
             }
-            .site-title{font-size:15px;font-weight:600;color:var(--menu-text)}
-            .menu-btn{display:none}
-            .slide-menu{display:none!important}
-
-            .ad-break:first-child{margin-top:62px}
-
-            .main-layout{flex-direction:row;padding:0 8px}
-            .sidebar{display:block;flex-shrink:0;padding:16px 8px;position:relative}
-            .sidebar-left{width:160px;border-right:1px solid var(--border-color)}
-            .sidebar-right{width:160px;border-left:1px solid var(--border-color)}
-
-            .gv2-section{margin:32px 0}
-            .gv2-section:first-child{margin-top:8px}
-            .gv2-title{padding:0 14px}
-            .gv2-title h2{font-size:22px}
-            .gv2-grid{padding:0 14px;gap:10px}
-
-            .gv2-featured{
-                grid-template-columns:2fr 1fr 1fr;
-                grid-template-rows:1fr 1fr;gap:10px;
+            25%, 75% {
+                box-shadow:
+                    0 1px 0 rgba(255,255,255,1) inset,
+                    0 0 30px rgba(166,124,46,.7),
+                    0 12px 20px rgba(122,92,30,.4);
+                transform: translateY(-4px) scale(1.03);
             }
-            .gv2-featured-big{
-                grid-column:1 / 2;grid-row:1 / 3;
+            50% {
+                box-shadow:
+                    0 1px 0 rgba(255,255,255,1) inset,
+                    0 0 50px rgba(166,124,46,.9),
+                    0 16px 28px rgba(122,92,30,.5);
+                transform: translateY(-6px) scale(1.04);
             }
-            .gv2-featured-big .gv2-card-link img{aspect-ratio:auto;height:100%}
-            .gv2-featured-small{grid-column:auto;grid-row:auto}
-            .gv2-featured-small .gv2-card-link img{aspect-ratio:16/9}
-
-            .gv2-latest{grid-template-columns:repeat(5,1fr);gap:10px}
-            .gv2-stories{grid-template-columns:repeat(4,1fr);gap:10px}
-            .gv2-tutorials{grid-template-columns:repeat(3,1fr);gap:10px}
-            .gv2-archive{grid-template-columns:repeat(6,1fr);gap:10px}
-
-            .gv2-card{border-radius:12px}
-            .gv2-card:hover .gv2-card-link img{transform:scale(1.05)}
-
-            /* Desktop nav: muncul */
-            .desktop-nav{
-                display:flex;gap:4px;padding:0 14px;max-width:1400px;margin:0 auto 8px;
-            }
-            .desktop-nav a{
-                padding:6px 12px;color:var(--menu-text);text-decoration:none;font-size:13px;
-                border-radius:6px;transition:all .15s ease;
-            }
-            .desktop-nav a:hover{color:var(--text-color);background:var(--menu-hover-bg)}
         }
-
-        /* ============================
-           LARGE DESKTOP (min-width:1100px)
-           ============================ */
-        @media(min-width:1100px){
-            .sidebar-left{width:180px}
-            .sidebar-right{width:180px}
-            .gv2-grid{gap:12px}
-            .gv2-featured{gap:12px}
-            .gv2-latest{gap:12px}
-            .gv2-stories{gap:12px}
-            .gv2-tutorials{gap:12px}
-            .gv2-archive{gap:12px}
+        
+        .video-thumbnail { position: relative; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%); }
+        .video-thumbnail img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform .5s ease;
+        }
+        .grid-item:hover .video-thumbnail img {
+            transform: scale(1.06);
+        }
+        .video-thumbnail::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,.15) 50%, transparent);
+            z-index: 1;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px; height: 52px;
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            border: 2px solid rgba(255,255,255,.9);
+            border-radius: 50%;
+            z-index: 2;
+            transition: all .35s;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.5) inset,
+                0 -3px 4px rgba(0,0,0,.25) inset,
+                0 6px 14px rgba(0,0,0,.35),
+                0 3px 6px rgba(122,92,30,.4);
+        }
+        .grid-item:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1.15) translateZ(20px);
+            border-color: #fff;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.6) inset,
+                0 -3px 4px rgba(0,0,0,.3) inset,
+                0 10px 20px rgba(122,92,30,.5),
+                0 4px 8px rgba(0,0,0,.25);
+        }
+        .play-icon::after {
+            content: '';
+            width: 0; height: 0;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            border-left: 16px solid #fff;
+            margin-left: 4px;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,.4));
+        }
+        
+        .video-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.88), rgba(0,0,0,.4) 50%, transparent);
+            padding: 28px 10px 10px; z-index: 2;
+        }
+        .label {
+            display: block;
+            text-align: center;
+            font-size: clamp(9px, 2vw, 11px);
+            font-weight: 700;
+            color: #fff;
+            text-transform: capitalize;
+            margin: 0;
+            text-shadow: 0 1px 3px rgba(0,0,0,.8), 0 0 8px rgba(0,0,0,.5);
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            line-height: 1.3;
+        }
+        .duration {
+            position: absolute; bottom: 8%; right: 4%;
+            font-size: clamp(8px, 1.5vw, 10px); font-weight: 700;
+            color: #fff;
+            background: linear-gradient(180deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.65) 100%);
+            padding: 4px 8px; border-radius: 6px; z-index: 3;
+            border: 1px solid rgba(255,255,255,.15);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.2) inset,
+                0 -1px 2px rgba(0,0,0,.3) inset,
+                0 2px 4px rgba(0,0,0,.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,.6);
+        }
+        
+        .pagination-wrapper {
+            margin: 36px 0 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 0 8px;
+        }
+        
+        .pagination-info {
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 18px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 22px;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.05) inset,
+                0 4px 8px rgba(0,0,0,.08),
+                0 2px 4px rgba(0,0,0,.05);
+            line-height: 1.4;
+            max-width: 100%;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        .pagination-info strong {
+            color: #5C4415;
+            font-weight: 800;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(122,92,30,.2);
+        }
+        .pagination-info .info-divider {
+            display: inline-block;
+            margin: 0 6px;
+            color: #ccc;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button,
+        .pagination .page-num {
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border: 1px solid rgba(0,0,0,.1);
+            color: #444;
+            padding: 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 42px;
+            height: 42px;
+            transition: all .25s cubic-bezier(.2,.8,.2,1);
+            -webkit-tap-highlight-color: transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.06) inset,
+                0 4px 8px rgba(0,0,0,.1),
+                0 2px 3px rgba(0,0,0,.06);
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        .pagination button:hover:not(:disabled),
+        .pagination .page-num:hover:not(.active) {
+            border-color: rgba(166,124,46,.4);
+            color: #5C4415;
+            background: linear-gradient(180deg, #FDF6E0 0%, #F5EEDC 100%);
+            transform: translateY(-2px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.08) inset,
+                0 8px 14px rgba(122,92,30,.22),
+                0 3px 5px rgba(0,0,0,.08);
+        }
+        .pagination button:active:not(:disabled),
+        .pagination .page-num:active:not(.active) {
+            transform: translateY(1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.5) inset,
+                0 3px 6px rgba(0,0,0,.15) inset;
+        }
+        .pagination button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .pagination button.btn-nav {
+            padding: 0 16px;
+            gap: 6px;
+            min-width: auto;
+        }
+        .pagination button.btn-nav .arrow {
+            font-size: 16px;
+            line-height: 1;
+            font-weight: 800;
+        }
+        .pagination .page-num.active {
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            border-color: #7A5C1E;
+            color: #fff;
+            cursor: default;
+            text-shadow: 0 1px 2px rgba(0,0,0,.4);
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.4) inset,
+                0 -3px 4px rgba(0,0,0,.25) inset,
+                0 6px 12px rgba(122,92,30,.5),
+                0 3px 5px rgba(0,0,0,.2);
+        }
+        .pagination .page-num.active:hover {
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            color: #fff;
+            transform: none;
+        }
+        .pagination .ellipsis {
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 0 4px;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            height: 42px;
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        
+        .tag-cloud-section {
+            margin-top: 44px; padding-top: 32px;
+            border-top: 1px solid rgba(0,0,0,.06);
+            padding-bottom: 20px;
+        }
+        .tag-cloud-scroll {
+            max-height: 300px; overflow-y: auto;
+            scrollbar-width: thin; scrollbar-color: #ccc #f0f0f0;
+            padding: 18px 14px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 14px;
+            max-width: 900px; margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 3px rgba(0,0,0,.04) inset,
+                0 6px 12px rgba(0,0,0,.06);
+        }
+        .tag-cloud-scroll::-webkit-scrollbar { width: 6px; }
+        .tag-cloud-scroll::-webkit-scrollbar-track { background: #f0f0f0; }
+        .tag-cloud-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+        .tag-list {
+            list-style: none; display: flex; flex-wrap: wrap;
+            justify-content: center; gap: 8px; margin: 0; padding: 0;
+        }
+        .tag-list li { margin: 0; padding: 0; }
+        .tag-list a {
+            display: inline-block; text-decoration: none; color: #555;
+            font-size: clamp(10px, 2vw, 12px); font-weight: 600;
+            padding: 7px 15px; border-radius: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+            border: 1px solid rgba(0,0,0,.06);
+            transition: all .25s;
+            cursor: pointer;
+            word-break: break-word;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.04) inset,
+                0 3px 5px rgba(0,0,0,.06);
+            text-shadow: 0 1px 0 rgba(255,255,255,.9);
+        }
+        .tag-list a:hover {
+            border-color: rgba(166,124,46,.4);
+            color: #5C4415;
+            background: linear-gradient(180deg, #FDF6E0 0%, #F5EEDC 100%);
+            transform: translateY(-2px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 -1px 2px rgba(0,0,0,.08) inset,
+                0 6px 10px rgba(122,92,30,.18);
+        }
+        .tag-list a:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.5) inset,
+                0 2px 4px rgba(0,0,0,.12) inset;
+        }
+        .tag-list a.active-tag {
+            background: linear-gradient(145deg, #E0C77A 0%, #C9A961 40%, #A67C2E 100%);
+            border-color: #7A5C1E;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,.4);
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.4) inset,
+                0 -2px 3px rgba(0,0,0,.2) inset,
+                0 4px 8px rgba(122,92,30,.4);
+        }
+        
+        @media (min-width: 768px) {
+            body { padding: 16px; padding-top: 100px; }
+            .floating-header {
+                top: calc(14px + env(safe-area-inset-top));
+                left: 16px;
+                right: 16px;
+                height: 66px;
+                padding: 0 22px;
+                border-radius: 18px;
+            }
+            .header-brand .brand-text { font-size: 15px; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+            .ad-top-mobile { display: none; }
+            .ad-before-tags-mobile { display: none; }
+            .ad-top-desktop { display: flex; }
+            .ad-before-tags-desktop { display: flex; }
+            .tag-list a { font-size: 13px; padding: 9px 20px; }
+            .play-icon { width: 64px; height: 64px; }
+            .play-icon::after { border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid #fff; }
+            .ad-infeed {
+                grid-column: auto;
+                max-width: none;
+                margin: 0;
+                justify-self: auto;
+            }
+            .video-overlay { padding: 32px 12px 12px; }
+            .breadcrumb { padding: 12px 18px; }
+            .side-menu { width: 320px; max-width: 85vw; }
+            
+            .pagination-wrapper { margin: 44px 0 28px; gap: 16px; }
+            .pagination-info { font-size: 13px; padding: 11px 22px; }
+            .pagination { gap: 8px; }
+            .pagination button,
+            .pagination .page-num {
+                min-width: 46px;
+                height: 46px;
+                font-size: 14px;
+            }
+            .pagination button.btn-nav { padding: 0 20px; }
+            .pagination .ellipsis { height: 46px; }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid { gap: 20px; }
+            .play-icon { width: 70px; height: 70px; }
+            .play-icon::after { border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 24px solid #fff; }
+        }
+        
+        @media (max-width: 480px) {
+            .pagination button.btn-nav {
+                padding: 0 12px;
+                font-size: 12px;
+            }
+            .pagination button.btn-nav .arrow {
+                font-size: 15px;
+            }
+            .pagination button.btn-nav .nav-text {
+                display: none;
+            }
+            .pagination { gap: 5px; }
+            .pagination button,
+            .pagination .page-num {
+                min-width: 38px;
+                height: 38px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
+            .pagination .ellipsis { height: 38px; }
+        }
+        
+        @media (max-width: 360px) {
+            body { padding: 6px; padding-top: 82px; }
+            .floating-header { top: calc(6px + env(safe-area-inset-top)); left: 6px; right: 6px; height: 56px; }
+            .header-brand .brand-text { font-size: 12px; letter-spacing: 1px; }
+            .grid { gap: 10px; }
+            .play-icon { width: 44px; height: 44px; }
+            .play-icon::after { border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 14px solid #fff; }
+            .label { font-size: 8px; }
+            .duration { font-size: 7px; padding: 3px 6px; }
+            .pagination-info { font-size: 11px; padding: 8px 14px; }
+            .pagination button,
+            .pagination .page-num {
+                min-width: 34px;
+                height: 34px;
+                font-size: 11px;
+                border-radius: 7px;
+            }
+            .pagination .ellipsis { height: 34px; font-size: 12px; }
+        }
+        
+        @media (max-height: 500px) and (orientation: landscape) {
+            body { padding-top: 80px; }
         }
     </style>
-    
-{% include head.html %}
-
-
+    <link rel="sitemap" type="application/xml" href="https://kaula.biz.id/sitemap.xml">
+    {% include head.html %}
 </head>
 <body>
-
-
-
-
-
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div id="domainAvatar" class="site-avatar"></div>
-            <span id="blogMainTitle" class="site-title"></span>
-            <button class="theme-btn" id="themeToggle" aria-label="Toggle Theme">
-                <!-- Sun Icon -->
-                <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                </svg>
-                <!-- Moon Icon -->
-                <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
-            </button>
-            <button class="menu-btn" id="blogMenuToggle" aria-label="Menu">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-                <svg viewBox="0 0 24 24" style="display:none"><path d="M6 6l12 12M6 18l12-12"/></svg>
-            </button>
-        </div>
+    <!-- ===== FLOATING HEADER ===== -->
+    <header class="floating-header" id="floatingHeader">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <a href="/" class="header-brand">
+            <span class="brand-mark"></span>
+            <span class="brand-text" id="brandText">Site</span>
+        </a>
+        
+        <div class="header-slot"></div>
     </header>
-
-    <!-- SLIDE MENU -->
-    <nav id="blogMenuPanel" class="slide-menu">
+    
+    <div class="menu-overlay" id="menuOverlay"></div>
+    
+    <!-- ===== SIDE MENU ===== -->
+    <nav class="side-menu" id="sideMenu" aria-hidden="true">
+        <div class="side-menu-header">
+            <div class="side-menu-brand">
+                <span class="brand-mark"></span>
+                <span class="brand-text" id="sideBrandText">Site</span>
+            </div>
+            <button class="side-menu-close" id="sideMenuClose" aria-label="Close menu"></button>
+        </div>
         <ul>
-            <li><a href="/"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a></li>
-            <li><a href="/contact/"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contact</a></li>
-            <li><a href="/privacy-policy/"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy Policy</a></li>
-            <li><a href="/terms-and-conditions/"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Terms & Conditions</a></li>
+            <li><a href="/terms-and-conditions.html">Terms &amp; Conditions</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/contact.html">Contact</a></li>
         </ul>
     </nav>
 
-    <script>
-    (function(){
-        var host = window.location.hostname.split(".");
-        var sub = host[0];
-        if (sub.toLowerCase() === "www") sub = host[1] || "";
-        var clean = sub.replace(/-/g, " ");
-        document.getElementById("blogMainTitle").textContent = clean.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
-    })();
-    (function(){
-        var btn = document.getElementById("blogMenuToggle");
-        var panel = document.getElementById("blogMenuPanel");
-        var menuIcon = btn.querySelector("svg:first-child");
-        var closeIcon = btn.querySelector("svg:last-child");
-        btn.addEventListener("click", function(e){
-            e.stopPropagation();
-            var open = panel.classList.toggle("open");
-            menuIcon.style.display = open ? "none" : "block";
-            closeIcon.style.display = open ? "block" : "none";
-        });
-        document.addEventListener("click", function(e){
-            if(!panel.contains(e.target) && !btn.contains(e.target)){
-                panel.classList.remove("open");
-                menuIcon.style.display = "block";
-                closeIcon.style.display = "none";
-            }
-        });
-        panel.addEventListener("click", function(e){
-            e.stopPropagation();
-        });
-    })();
-    </script>
-
-    <!-- Theme Toggle Script -->
-    <script>
-    (function() {
-        var body = document.body;
-        var themeBtn = document.getElementById('themeToggle');
-        var sunIcon = document.getElementById('sunIcon');
-        var moonIcon = document.getElementById('moonIcon');
+    <p class="subtitle">Collection of Exclusive Videos</p>
+    
+    <div class="container">
+        <div class="ad-container ad-top-mobile">{% include /ads/banner/07.html %}</div>
+        <div class="ad-container ad-top-desktop">{% include /ads/banner/01.html %}</div>
         
-        // Check saved theme
-        var savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            body.classList.add('light-mode');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
+        <nav class="breadcrumb" id="breadcrumb"></nav>
+        
+        <div class="grid" id="videoGrid"></div>
+        
+        <!-- ===== PAGINATION ===== -->
+        <div class="pagination-wrapper">
+            <div class="pagination-info" id="paginationInfo"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+        
+        <div class="ad-container ad-before-tags-mobile">{% include /ads/banner/07.html %}</div>
+        <div class="ad-container ad-before-tags-desktop">{% include /ads/banner/01.html %}</div>
+        
+        <div class="tag-cloud-section">
+            <div class="tag-cloud-scroll">
+                <ul class="tag-list" id="tagList"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="adTemplateBanner02" style="display:none;">
+        {% include /ads/banner/02.html %}
+    </div>
+    
+    <script>
+        /* ============================================================
+           VIDEO QUERY LIST  —  EDIT HERE
+           ============================================================ */
+        var videoQueries = [
+      "	khinthawtarwinn	",						
+"	️️ hi_christineco	",						
+"	babymilkaaa	",						
+"	s4satinsilkx	",						
+"	ini_ceritaku03 exclusive	",						
+"	polishgirl_in_nylons	",						
+"	micaelaabby_	",						
+"	ariarinaa	",						
+"	malejaquintero13	",						
+"	kat3martynova nue	",						
+"	oliviahbls	",						
+"	preczy miss napakon jiraruchchatapack real name	",						
+"	inriseff	",						
+"	aneliyavi	",						
+"	dewrtnaa eksklusif	",						
+"	taisamikhailava	",						
+"	iamtepteprettyx	",						
+"	quinn_strawberrie	",						
+"	lalayada ice._.creammmm latest	",						
+"	ika yudiniati ikayudiniati latest	",						
+"	&quot;bellaramatv8&quot; mega	",						
+"	vasilisa pod vass_yaa latest	",						
+"	venus reambonanza eversunneva latest	",						
+"	brooke laurier brookelaurierr latest	",						
+"	ameliaadamzskits cams	",						
+"	myka basco-poynton mykabasco latest	",						
+"	muller ingrid roxana muller_ingrid_roxana latest	",						
+"	ameliaadamzskits trio	",						
+"	nastyanastya063	",						
+"	amasharlinfit	",						
+"	reenu thakur reenuthakur21 latest	",						
+"	rxceegxrl1 trio	",						
+"	noviana nilam kay_officially latest	",						
+"	jesica nababan ckjesss latest	",						
+"	leatherbykarina personal blog latest	",						
+"	ashlee rose missashleerosex latest	",						
+"	thenaraford trio	",						
+"	silviaroyshita88	",						
+"	intext:&quot;audreylikessadie&quot; cam or recordings or siterip or albums	",						
+"	gonev gonevmodernnomad latest	",						
+"	rizkimbambot exclusive	",						
+"	angelina smirnova aneliyavi latest	",						
+"	xlucyvgh	",						
+"	komeng club komengclub latest	",						
+"	jule ikut ikut galyas	",						
+"	yudi santoso didi_w88 latest	",						
+"	sourabh arora digital marketing strategy insights and posts	",						
+"	sharkgymers2	",						
+"	intext:&quot;adriana.secrets&quot; pics or gallery or images or videos	",						
+"	violante massimo di roccasecca viomdr latest	",						
+"	barbara becirovic barbbooooo latest	",						
+"	intext:&quot;anja_diergarten&quot; cam or recordings or siterip or albums	",						
+"	shiny girls club shinygirlsclub latest	",						
+"	&quot;bellaramatv8&quot; sexy photos	",						
+"	armenian angels armenianangels latest	",						
+"	verybosssy	",						
+"	arifin nganguyeen	",						
+"	francety site:github.	",						
+"	indi wulandari indygaga latest	",						
+"	irina likhachyova cyaptx latest	",						
+"	&quot;bellaramatv8&quot;	",						
+"	dewrtnaa	",						
+"	vas podvalenchuk	",						
+"	odessa_vip_story	",						
+"	h0tlikedoritos	",						
+"	potonganfilm potonganfilmofficial latest	",						
+"	tania_med11	",						
+"	assellbeisebai	",						
+"	stephanie joyce steward madame_letitia_ann latest	",						
+"	ameliaadamzskits teas	",						
+"	kat4martynova altura	",						
+"	portraitgirls2022	",						
+"	assel beisebai	",						
+"	zlata ivanitskaya zlata_li latest	",						
+"	keqabutan keqabutan latest	",						
+"	gloria legs due glorialegsdue_official latest	",						
+"	juniar ayu juniarayutl latest	",						
+"	omy newland omynewland latest	",						
+"	samira alessandra	",						
+"	intext:&quot;adriana.secrets&quot; videos	",						
+"	maria novi maarianoviaanti latest	",						
+"	&quot;bellaramatv8&quot; sextape	",						
+"	goencho soro goenchosoro latest	",						
+"	mihaela scripnic mihaelaskripnik latest	",						
+"	samira alessandra ️	",						
+"	edenla bhutia eden.laa latest	",						
+"	elizabete nunes eliznunesss latest	",						
+"	agnes davonar agnesdavonar22 latest	",						
+"	lilyyourworkwife	",						
+"	katiekatie66_ forum	",						
+"	noona.napakon	",						
+"	debbie_liii	",						
+"	nabiella piguna nabiellas latest	",						
+"	sayde rasimovna	",						
+"	olesiavog	",						
+"	bang dhan dhanypramata latest	",						
+"	rizkimbambot eksklusif	",						
+"	kristina_kis27	",						
+"	ellie_louise_modelling	",						
+"	bebbylovi	",						
+"	ananya official18 instagram profile	",						
+"	nrhanna12	",						
+"	intext:&quot;adriana.secrets&quot; stream or content or unlocked or pack	",						
+"	melisamoonx_kiss	",						
+"	gladysjanee	",						
+"	diki irawan sahabatawanreal latest	",						
+"	babygabie_r	",						
+"	karinkapedro and zoe hill	",						
+"	goddesss_more	",						
+"	qkepo18	",						
+"	intext:&quot;adriana.secrets&quot; webcam or cam or live or collection or recordings	",						
+"	intext:&quot;adriana.secrets&quot; 4k or hd or hq or 720p or share	",						
+"	presti hastuti	",						
+"	seaelicia	",						
+"	missdaisyreels	",						
+"	ikayudiniati	",						
+"	intext:&quot;adriana.secrets&quot; images or pics or gallery or album	",						
+"	intext:&quot;adriana.secrets&quot; online or full or torrent or siterip	",						
+"	radjata entertainment garut miss linda	",						
+"	noona napakon	",						
+"	francisca limanto satamijapantour latest	",						
+"	shinyprettydoll	",						
+"	yelisavieta andryeivna yelisavietareal latest	",						
+"	justsarahoffice	",						
+"	ameliaadamzskits cames	",						
+"	seavgechhhh	",						
+"	ini_ceritaku03 nude	",						
+"	tea scafarto teascafarto latest	",						
+"	zhanelikka	",						
+"	lalayada ice._.creammmm instagram latest posts	",						
+"	_cheeseeecake_	",						
+"	janny.napakon	",						
+"	preczy miss napakon jiraruchchatapack prece_jirarachchatapack latest	",						
+"	alfrid asditya alfridasditya latest	",						
+"	ameliaadamzskits câmeras	",						
+"	kipani1021 instagram	",						
+"	_cheeseeecake_ ig	",						
+"	&quot;valentina vidartes&quot; linkedin	",						
+"	showroomdamari	",						
+"	deashinta34	",						
+"	sa_sha2301 real name	",						
+"	itsbabytana	",						
+"	melisamoonx	",						
+"	shaine rizelle macela digital creator latest	",						
+"	ila limited collection ilalimitedcollection latest	",						
+"	alleaaa25_	",						
+"	euwi_glam07	",						
+"	dia miller &amp; maru fox ️	",						
+"	alexandra_bolojan instagram	",						
+"	cshshhbs live	",						
+"	vallerycegolea	",						
+"	kateghiter	",						
+"	ayaulym delin genius	",						
+"	laetitialacourtoff	",						
+"	fainka mini	",						
+"	mischahishion	",						
+"	michael ade ojo bellikemike latest	",						
+"	kassiankaofficial instagram stories	",						
+"	thenaraford teas	",						
+"	moah_je	",						
+"	site:github.io &quot;chat.whatsapp.com&quot; whisky	",						
+"	sayde rasimovna age	",						
+"	noonagopa	",						
+"	angelinaisprettyy	",						
+"	yaritoradan_official latest	",						
+"	raerobintv	",						
+"	vasilisa podvalenchuk	",						
+"	albert muhammad albert_muhammad latest	",						
+"	dewrtnaa hot	",						
+"	pamela aigan pamelaigann latest	",						
+"	native_nd_dress	",						
+"	rxceegxrl1 cams	",						
+"	anna gula kwiecinska ladyflowercookies latest	",						
+"	tais1z	",						
+"	maria korpan	",						
+"	juhfreitas14___	",						
+"	phatticatt	",						
+"	kulakova polina age	",						
+"	dewrtnaa exclusive	",						
+"	forum social media girls lynaritaa	",						
+"	janny napakon	",						
+"	runsoeun age	",						
+"	lana_melyagina	",						
+"	megumegu_chan68	",						
+"	diamantaoff1	",						
+"	sonloran_	",						
+"	mihaela scripnic age	",						
+"	bellemiranda_official	",						
+"	officecutierufa	",						
+"	tiaralovaa	",						
+"	shaine rizelle macela siyeynmacela latest	",						
+"	dea nice deanice11 latest	",						
+"	name dia miller &amp; maru fox	",						
+"	reenu thakur reenuthakur21 latest instagram posts	",						
+"	aeshkaa	",						
+"	rizkysuryani21 eksklusif	",						
+"	shaine rizelle macela movie list	",						
+"	talinaviera	",						
+"	site:github.io &quot;chat.whatsapp.com&quot; bachata	",						
+"	forum social media girls lyanritaa	",						
+"	martskayaya naked	",						
+"	inriseff exclusive	",						
+"	thenaraford cams	",						
+"	marinaxbaee	",						
+"	anna kristina grushina age	",						
+"	secretsofseta	",						
+"	gingery ksu trio	",						
+"	hi_christineco age	",						
+"	hi_christineco real name	",						
+"	supermolly777 latex	",						
+"	azinkoova	",						
+"	dmaria store dmariastore latest	",						
+"	reenuthakur21 latest instagram posts	",						
+"	chloe_ri cam	",						
+"	feminelle id model name instagram	",						
+"	charlizedim	",						
+"	xiomaraortega60	",						
+"	lunabond1	",						
+"	katerina_dess	",						
+"	indygaga	",						
+"	madaniahnugrah	",						
+"	intext:&quot;christina_lionscat&quot; cam or recordings or siterip or albums	",						
+"	dvoooit nude	",						
+"	yaaadashulya 18+	",						
+"	arachuu dolly	",						
+"	amali_graceful_	",						
+"	katiedomsyou femdom	",						
+"	francety and sophie dee	",						
+"	hamza messaf ilvucumpra latest	",						
+"	lisssaveta lissssaveta14 latest	",						
+"	ma_mu_muc	",						
+"	tiaburbujasweet	",						
+"	office brunette officebrunette latest	",						
+"	gopa noona 18+	",						
+"	oktavianaelisliana	",						
+"	indianleathergirls	",						
+"	angelmars911	",						
+"	hearteyesrufa	",						
+"	lika0190 name	",						
+"	indygaga hot	",						
+"	lylalushxo	",						
+"	mara durón maraduron10 latest	",						
+"	dvoooit	",						
+"	weraweroni	",						
+"	dia miller &amp; maru fox	",						
+"	priscillalaruffera creador digital latest	",						
+"	juhfreitas14	",						
+"	boxngamgai	",						
+"	babyccce	",						
+"	qkepo18 live	",						
+"	maruredfox	",						
+"	anastthasia alvarez	",						
+"	erikaputrealll	",						
+"	ika yudiniati	",						
+"	katiedomsyou️	",						
+"	evilqueenpriv	",						
+"	hcefd1	",						
+"	pottyariai	",						
+"	femdom asmr seo opportunity. youtube content	",						
+"	milenka x beata herman	",						
+"	lidija bacic altura	",						
+"	siapa dia	",						
+"	thanyanan jaratchaiwong porn	",						
+"	assellbeisebai nude	",						
+"	erzabel lew	",						
+"	saramiaax 18+	",						
+"	#NAME?	",						
+"	yourdistractionrose 18+	",						
+"	bellarama dildo	",						
+"	blanca_friedrich	",						
+"	gopa.noona porn	",						
+"	blondinka angelia	",						
+"	dewrtnaa porn	",						
+"	billiecritt123	",						
+"	ladyflowercookies forum	",						
+"	diana20011012	",						
+"	karinkapedro mude	",						
+"	saramia.bby nude	",						
+"	softsidesofiaaa	",						
+"	shiny_and_cosplayer_lover	",						
+"	anzhelika mishagli anzhelika_mishagli latest	",						
+"	bellaramatv8	",						
+"	euphoriaavictoriaa	",						
+"	_agnieszka_888	",						
+"	minibabe 18+	",						
+"	adeline sasongko adelinelascano latest	",						
+"	qstnalee	",						
+"	jdogwannasleep real name	",						
+"	kiss fashion kissfashioncr latest	",						
+"	mud pot channel mudpotchannel latest	",						
+"	nigina ismoilova nigina_ismoilova_officiall latest	",						
+"	tania cadiche tanicadiche latest	",						
+"	__seu1__ bikini	",						
+"	emzyburnns instagram	",						
+"	shaine rizelle macela age	",						
+"	anastasia kisigachh	",						
+"	mellstroy_narezku	",						
+"	vivian taylor starlit icons	",						
+"	diindanih dood	",						
+"	hanalthea_	",						
+"	hcefd1 あみ	",						
+"	iamasiadoll bikini	",						
+"	ccurly_reels	",						
+"	miss praskeva and kira liv	",						
+"	sa_sha2301 name	",						
+"	whitewomen_blackmen_in_love	",						
+"	rizkimbambot dood	",						
+"	apol salangad movie	",						
+"	jdogwannasleep	",						
+"	maría korpan	",						
+"	polina malinovskaya mellstroy	",						
+"	edalmi soukaina age	",						
+"	ilham akbar yuswar ilhamabayy latest	",						
+"	lucia_sundaniii	",						
+"	meg_slaninko instagram	",						
+"	montana_minxuk	",						
+"	silvia roy shita bikini	",						
+"	ini_ceritaku03 instagram	",						
+"	ivanushkinairinia	",						
+"	nivalislava	",						
+"	amber_rickard3	",						
+"	angelinaisprettyy instagram	",						
+"	ruya_duymus1	",						
+"	shaine rizelle macela - siyeynmacela	",						
+"	chloe_ri live	",						
+"	maria korpan ig	",						
+"	aimiaimaker	",						
+"	alturaleng_	",						
+"	rizkimbambot viral	",						
+"	manataudapat exclusive ig	",						
+"	myvonnieta instagram id	",						
+"	lidija bacic nue	",						
+"	ivanka peach	",						
+"	sign bond cyano dubai	",						
+"	annlee_3	",						
+"	emzyburnns	",						
+"	justyna gradek age	",						
+"	mimilu.chou	",						
+"	name of this man	",						
+"	tama gandjar wedding date	",						
+"	tsana jasmine misbah	",						
+"	which one is better looking	",						
+"	andreana tkachenko	",						
+"	micaelaabby_ nude	",						
+"	nama wanita ini	",						
+"	модель	",						
+"	ссылки	",						
+"	day la ai	",						
+"	keyna cecia	",						
+"	quiero saber su nombre completo	",						
+"	who is this model	",						
+"	indah sari ini_ceritaku03	",						
+"	nama kreator	",						
+"	คนนี้ใคร	",						
+"	audreylikessadie stream or content or unlocked or pack	",						
+"	diana vladi dianaablond	",						
+"	jasmine.rguez_777	",						
+"	keyword chatimeh	",						
+"	marina kowalczyk	",						
+"	sa_sha2301	",						
+"	inriseff nude	",						
+"	liinaliiis forum	",						
+"	melisamoonx kiss	",						
+"	mistress katiedomsyou	",						
+"	supermolly777 hardcore	",						
+"	who is she	",						
+"	don&#39;t show website	",						
+"	erzabel video porno	",						
+"	gopa noona bikini	",						
+"	is she real	",						
+"	marisol yotta nue	",						
+"	yes or no	",						
+"	chaar_34	",						
+"	dianaablond nue	",						
+"	excinderella nue	",						
+"	inriseff eksklusif	",						
+"	alla bruletova nue	",						
+"	malejaquintero porno	",						
+"	neringa kriziute nue	",						
+"	r/girlsinleggings	",						
+"	_devochkassevera_	",						
+"	amnddiah porn	",						
+"	bnikuwu real name	",						
+"	bree dan dea collab kembali	",						
+"	eatpraydong bg	",						
+"	lyutaya.ira nude	",						
+"	mariamartskaya nude	",						
+"	ogreltv	",						
+"	refresyit	",						
+"	saramiaax only fans	",						
+"	tiffany tatum amirah adara	",						
+"	dos navigator dm.mnu команда запуска exe	",						
+"	marinaxbaee dildo	",						
+"	yoyi jalan lana bulu	",						
+"	razer patricia menikah	",						
+"	hani.siregar_	",						
+"	seta tahmasebi porn	",						
+"	amalia graseful	",						
+"	xomissrayy	",						
+"	supermolly777 porn	",						
+"	yesol170 bikini	",						
+"	adelinelascano workout	",						
+"	kixxy misskixxy latest	",						
+"	momona koibuchi pov	",						
+"	myvonnieta por	",						
+"	snow_chantii	",						
+"	berlliana lovell bikini	",						
+"	cerita dewasa 18+ dugem ranjang	",						
+"	maricon escosis only fans	",						
+"	arthitwhay exclusive	",						
+"	qstinalee	",						
+"	digital marketing software github sports	",						
+"	inriseff hot	",						
+"	karinakpetro and zoexhill	",						
+"	krizzl personal blog latest	",						
+"	lyutaya.ira forums	",						
+"	sheeeeoo na jol	",						
+"	&quot;bellarama&quot; mega	",						
+"	__ seu1 __ bikini	",						
+"	asmr with asya beauty shop laurel latest	",						
+"	asmr with asya beauty store laurel latest	",						
+"	elizaveta matveeva massage	",						
+"	emzyburnns x	",						
+"	febri andini febriandiniiii latest	",						
+"	folk bandung folkbdg latest	",						
+"	karell888	",						
+"	lady alessandra bartis ladyalessandrab latest	",						
+"	madel nuiz tim age	",						
+"	myvonnieta hot video	",						
+"	neshaperera	",						
+"	olivia fleur walks oliviafleurwalks latest	",						
+"	polina malinovskaya nue	",						
+"	qistina lee lingerie	",						
+"	supermolly720	",						
+"	_itsmesebseb	",						
+"	andrew andika lucinta luna	",						
+"	indygaga dood	",						
+"	valafit2	",						
+"	catheez store	",						
+"	kameaam suami	",						
+"	syx_hitomi	",						
+"	voitova darya nude	",						
+"	anabel acosta adriannaeves age	",						
+"	dashaboyko_	",						
+"	didiqueen hot	",						
+"	fbyana asmara real name	",						
+"	mudmeessp	",						
+"	romica lyan cornito porn	",						
+"	daynia latex	",						
+"	elizavetabom age	",						
+"	jellie aw realjellieaw latest	",						
+"	katherine ᴍorales vargas	",						
+"	nylons perfection nylonsperfection latest	",						
+"	runsoeun sexy	",						
+"	christina lionscat 18+	",						
+"	heydiago	",						
+"	model name : miss praskeva and kira liv	",						
+"	mudmee ssp	",						
+"	raphael aghahan rafreacts latest	",						
+"	saramiaax	",						
+"	taisa mikhailava	",						
+"	zabelo zabeloh_hlabisa latest	",						
+"	hazelnut9999 ig	",						
+"	hhfernanda age	",						
+"	shielaflopez	",						
+"	tasyagalaxy	",						
+"	anggita gaming anggita_gaming latest	",						
+"	anna_delyla porn	",						
+"	mulleringridroxana	",						
+"	trishpati_g32two	",						
+"	dolly yanny dollyyanny latest	",						
+"	ig: audreylikessadie	",						
+"	laetitia lacourt laetitialacourt__style latest	",						
+"	sa_sha2301 of	",						
+"	lowongan kerja kuala tungkal	",						
+"	lyyyy.chn	",						
+"	m_angelina_k	",						
+"	siyeynmacela movie	",						
+"	lalayada	",						
+"	missparaskeva and kira liv	",						
+"	anastasia shafranska instagram	",						
+"	skybruni webcam or cam or live or collection or recordings	",						
+"	supermolly latex	",						
+"	camifernz	",						
+"	carolzhouyanxi	",						
+"	rizkimbambot hot	",						
+"	runsoeun ass	",						
+"	didiqueen eksklusif	",						
+"	dokter hendi garut	",						
+"	mina luxx vixen	",						
+"	tifany wallemacq nue	",						
+"	trixielalaine07 real name	",						
+"	__blackmamba99__	",						
+"	apol salangad real name	",						
+"	kat3martynova youtube age	",						
+"	taiyouquo	",						
+"	iam_amelie007official	",						
+"	honey3pie	",						
+"	maricon escosis viral	",						
+"	roncikelv	",						
+"	vanjakomatinaofficial	",						
+"	jezza marie bagaforo age	",						
+"	letbclothing	",						
+"	zivana questa afisah	",						
+"	anna kristina grushina porn	",						
+"	openkerja	",						
+"	bunda_keisha93	",						
+"	eicko performance mobile	",						
+"	rraapd real name	",						
+"	yourambiee	",						
+"	reenuthakur21	",						
+"	polina kulakova altura	",						
+"	sophieraynemeow	",						
+"	beijing bobo genius	",						
+"	krasnova_fitt	",						
+"	podcast helobagas	",						
+"	nata_polezhayewa	",						
+"	denice andree showroom	",						
+"	kesha kixxy	",						
+"	lienusch	",						
+"	rachel kaelin rachelbaelin latest instagram posts	",						
+"	iam_amelie007 instagram	",						
+"	sahara laika berenguer	",						
+"	певицата михаела хъни	",						
+"	mycah sasaki bikini	",						
+"	natalie__val	",						
+"	devochkassevera video	",						
+"	squadbelles	",						
+"	clarisa jombang	",						
+"	laura lutiq	",						
+"	digital marketing guide	",						
+"	agnes davonar suami	",						
+"	jasa inspeksi motor bekas bandung	",						
+"	mirjam hornetz	",						
+"	yunik digital marketing	",						
+"	intext:&quot;amber_rickard3&quot; videos	",						
+"	&quot;intext:&quot;adriana.secrets&quot; file or mega or link or grab or cloud or view or watch&quot;	",						
+"	rxceegxrl1 câmeras	",						
+"	ameliaadamzskits sextape	",						
+"	ini_ceritaku03	",						
+"	ameliaadamzskits pornô	",						
+"	thanyanan jaratchaiwong	",						
+"	liinaliiis mega	",						
+"	sa_sha2301 only fans	",						
+"	maricon escosis instagram	",						
+"	princess_dee777	",						
+"	diamillerus	",						
+"	ameliaadamzskits porno	",						
+"	oliveskinbaby	",						
+"	janed_404	",						
+"	preczy miss napakon jiraruchchatapack	",						
+"	audreylikessadie	",						
+"	missashleerosex	",						
+"	polina kulakova bikini	",						
+"	eatpraydong كاميرات	",						
+"	maricon escosis	",						
+"	anna gula kwiecinska	",						
+"	gingery ksu cams	",						
+"	lyna perez micro bikini	",						
+"	sharishanya x videos	",						
+"	irais alarcon bikini	",						
+"	laureljeune dildo	",						
+"	keyna cecia viral	",						
+"	mathilda toresdotter	",						
+"	tati karina roggero	",						
+"	tatiana_nylonsqueen	",						
+"	themarisolyotta	",						
+"	ladycherrycookies	",						
+"	melisa moonx	",						
+"	sharishanya xxx video	",						
+"	ararasocute	",						
+"	marisol yotta bikini	",						
+"	tifany_fit	",						
+"	ameliaadamzskits nu	",						
+"	kkubi99 bikini	",						
+"	misskixxy	",						
+"	irina ivanushkina nude	",						
+"	sa_sha2301 porn	",						
+"	adeline sasongko hot	",						
+"	nganguyeen hot	",						
+"	noviana nilam kay	",						
+"	lucylemonxx	",						
+"	ameliaadamzskits ass	",						
+"	lena polanski bikini	",						
+"	whipitdev mega	",						
+"	diindanih	",						
+"	zeeba kalan bikini	",						
+"	emzyburnns dildo	",						
+"	duda_moranguinhos	",						
+"	meri babayan bikini	",						
+"	loja mayenne irineu	",						
+"	kulakova polina bikini	",						
+"	violante massimo di roccasecca nude	",						
+"	queennie klaire	",						
+"	risaatjan exclusive	",						
+"	ladyflowercookies	",						
+"	ochi anggraini live bar bar	",						
+"	cshshhbs	",						
+"	liinaliiis old video	",						
+"	myvonnieta	",						
+"	stilistica_daily	",						
+"	mejecky latex	",						
+"	alina liinaliiis	",						
+"	dea shinta imutzz	",						
+"	sharishanya karina	",						
+"	bronwin aurora stockings	",						
+"	adhara_fht	",						
+"	rxceegxrl1 كاميرات	",						
+"	kateghiter nude	",						
+"	malejaquintero13 x	",						
+"	blondiemarie1	",						
+"	skylarmaexobae	",						
+"	adhara hincapie	",						
+"	kat3martynova	",						
+"	miss napakon jiraruchchatapack	",						
+"	badte4cher ann sexy	",						
+"	iamasiadoll instagram	",						
+"	rasheelokam	",						
+"	karina prank teknisi	",						
+"	preczy miss napakon	",						
+"	missleylahlinda	",						
+"	excinderella facebook	",						
+"	mashymi	",						
+"	sharishanya xxx videos	",						
+"	gresaidss mr experience	",						
+"	sharishanya hot	",						
+"	elis liana oktaviana porn	",						
+"	sayde rasimovna nude	",						
+"	butuc alondra	",						
+"	selika exposito sexy	",						
+"	kat3martynova bikini	",						
+"	missashleerosex porn	",						
+"	queennie klaire castrodes porn	",						
+"	__seu1__	",						
+"	queennie klaire castrodes hot	",						
+"	selika exposito hot	",						
+"	roshie_mmaaa	",						
+"	risaatjan exclusive ig	",						
+"	angie marcheria bikini	",						
+"	luanastomazz	",						
+"	manataudapat bikini	",						
+"	queennie klaire castrodes	",						
+"	arual bloom	",						
+"	anastthasia	",						
+"	manataudapat eksklusif	",						
+"	katiedomsyou	",						
+"	aaliyah yasin josy black	",						
+"	your_cookiecherry	",						
+"	marieofficecrush	",						
+"	lynaritaa teas	",						
+"	bjyuka	",						
+"	erzabel videos	",						
+"	officialamandabreden	",						
+"	silvia royshita live bar bar	",						
+"	alla bruletova in bikini	",						
+"	deashinta34 nude	",						
+"	social media girls liinaliiis	",						
+"	erzabel hardcore	",						
+"	manataudapat live transparan	",						
+"	tifany wallemacq dildo	",						
+"	iam_amelie007	",						
+"	tatiana nylonsqueen porn	",						
+"	sharishanya_karina	",						
+"	risaatjan exc	",						
+"	zlata yuki asmr	",						
+"	queennie klaire castrodes xxx video	",						
+"	video viral manataudapat	",						
+"	ameliaadamzskits threesome	",						
+"	diamillerreels	",						
+"	karina kriziute	",						
+"	meowbarbie77	",						
+"	esra rabia ünal barış reus	",						
+"	risaatjan eksklusif ig	",						
+"	badte4cher bikini	",						
+"	badte4cher 18+	",						
+"	faina malinovskaya nude	",						
+"	sofialba.xox	",						
+"	ini_ceritaku03 hot	",						
+"	whipitdev bikini	",						
+"	lena polanski lingerie	",						
+"	risaatjan exclusive content	",						
+"	secret_jessica_	",						
+"	risaatjan viral video	",						
+"	anna kristina grushina nude	",						
+"	nganguyeen	",						
+"	barbara becirovic bikini	",						
+"	sacuraisy nude	",						
+"	imcharlottelily bg	",						
+"	runsoeun hot	",						
+"	bethfiit bikini	",						
+"	mia lynn bangunan	",						
+"	ameliaadamzskits porn	",						
+"	kkubi99 age	",						
+"	luana lopes lara bikini	",						
+"	anna gula kwiecinska porn	",						
+"	ejahazel ai video	",						
+"	monica ardhea bikini	",						
+"	kate shumskaya bikini	",						
+"	linda gemoy semok	",						
+"	thebrookeblond	",						
+"	berfin sarıkaya nude	",						
+"	mellstroy punch video	",						
+"	silvia royshita hot	",						
+"	ejahazel bikini	",						
+"	tania cadiche	",						
+"	daria kinrris	",						
+"	emmi_maro	",						
+"	risaatjan viral	",						
+"	gopa.noona	",						
+"	ann badte4cher	",						
+"	kkubi99 real name	",						
+"	maggy_legs	",						
+"	selika exposito	",						
+"	tana rain itsbabytana	",						
+"	beby widya gemoy	",						
+"	prece_jirarachchatapack	",						
+"	katerealgirl	",						
+"	intext:&quot;krystellelacroix&quot; videos	",						
+"	neringa kriziute age	",						
+"	badte4cher ann	",						
+"	erzabel	",						
+"	milenka beata	",						
+"	momsclosetfinds	",						
+"	oz_nurunuz instagram	",						
+"	anastasiia zhurbenko	",						
+"	jezza marie bagaforo bikini	",						
+"	silvia roy shita hot	",						
+"	kat3martynova youtube	",						
+"	masher_xtr	",						
+"	skylarmaexobae instagram	",						
+"	blondinka ksu	",						
+"	gopa noona	",						
+"	neringa kriziute more of me	",						
+"	hi_christineco	",						
+"	imcharlottelily coomer	",						
+"	#NAME?	",						
+"	mellifelice bg	",						
+"	thanyanan jaratchaiwong xxx	",						
+"	inkyung97 video	",						
+"	innaya by liza	",						
+"	barış reus öznur güven	",						
+"	laureljeune	",						
+"	fbyana	",						
+"	bbdjade	",						
+"	haileypandolfi	",						
+"	liinaliiis 18+	",						
+"	roselew1s	",						
+"	emzyburnns xxx	",						
+"	hazel grace &amp; lexy montana	",						
+"	rxceegxrl1 ass	",						
+"	andreana tkachenko age	",						
+"	babymilkaaa nude	",						
+"	build and flex with sherinah	",						
+"	mashymi porno	",						
+"	risaatjan brutal	",						
+"	janet guzman erome	",						
+"	liinaliiis alina	",						
+"	pasha pozdniakova nue	",						
+"	x__kamilla__x1	",						
+"	princesse katrin 18+	",						
+"	@326n.h2 instagram	",						
+"	kito ford malam	",						
+"	notriisaaa viral video	",						
+"	sa_sha2301 jav	",						
+"	ghizila ionela nude	",						
+"	rxceegxrl1 real name	",						
+"	oznurguven__	",						
+"	bronwin aurora in bikini	",						
+"	iamasiadoll latex	",						
+"	kali_gunz	",						
+"	eatpraydong trio	",						
+"	neringa kriziute x	",						
+"	#NAME?	",						
+"	martina mikeskova lingerie	",						
+"	kumala cipta dewi bikini	",						
+"	eatpraydong pov	",						
+"	missparaskeva bikini	",						
+"	rizkimbambotttt	",						
+"	assellbeisebai porn	",						
+"	liinaliiis age	",						
+"	alla bruletova mellstroy	",						
+"	edalmi soukaina nude	",						
+"	evasavagiou coomer	",						
+"	lenapolanski	",						
+"	saramiaaxx	",						
+"	baby yujia 18+	",						
+"	risaatjan notriisaaa	",						
+"	runsoeun	",						
+"	tatiana nylonsqueen	",						
+"	badte4cher ann xxx	",						
+"	manataudapat exclusive	",						
+"	eva savagiou xx	",						
+"	polina malinovskaya jay alvarez	",						
+"	preczy miss napakon jiraruchchatapack porn	",						
+"	badte4cher latex	",						
+"	justyna.jalowiecka2	",						
+"	rizkimbambot nude	",						
+"	manataudapat tevi	",						
+"	fbyana mandi	",						
+"	mashymi hot	",						
+"	amirah adara latex	",						
+"	felicia mellstroy	",						
+"	seta tahmasebi	",						
+"	yana mellstroy	",						
+"	bronwin aurora nu	",						
+"	ini_ceritaku03 indah sari	",						
+"	keyna cecia hot	",						
+"	anisa santika arum porn	",						
+"	maychelie vincent liyanto	",						
+"	nganguyeen ig	",						
+"	audreylikessadie pics	",						
+"	sa_sha2301 sexy	",						
+"	aaliyah yasin&#39;s indian bride pov sex tape	",						
+"	hilfa ipeh	",						
+"	kateghiter nudes	",						
+"	leticia miranda pov	",						
+"	gresaidss age	",						
+"	justyna jalowiecka instagram	",						
+"	anja_diergarten	",						
+"	bjyuka bikini	",						
+"	_kamellia_b_	",						
+"	amirah adara and zlata shine	",						
+"	celine nobleza bikini	",						
+"	christywhite_	",						
+"	manataudapat ig	",						
+"	malejaquintero13 hot	",						
+"	natalieyospina bikini	",						
+"	ini_ceritaku03 xx	",						
+"	lara kudo cosplay	",						
+"	lucylemonxx instagram	",						
+"	madel nuiz tim	",						
+"	faina malinovskaya porn	",						
+"	gopa noona nude	",						
+"	karina prank tukang pijat	",						
+"	amirah adara stockings	",						
+"	anzhelika mishagli	",						
+"	brooke tik tok	",						
+"	erzabel pov	",						
+"	gunay ejderova	",						
+"	whipitdev	",						
+"	diana jasmine	",						
+"	erzabel bg	",						
+"	heyromica	",						
+"	jezza marie bagaforo live	",						
+"	pasha pozdniakova xx	",						
+"	ellie moore ellmari.e	",						
+"	jane_soul_life	",						
+"	nuomeizimini	",						
+"	emily burns emzyburnns	",						
+"	nina 326n.h	",						
+"	amirah adara bikini	",						
+"	linadiaa instagram	",						
+"	bronwin aurora reels	",						
+"	leatherbycarina	",						
+"	bianca anastasia arcori	",						
+"	me_martiina martina mikeskova	",						
+"	oz_nurunuz	",						
+"	fainka.mmmi	",						
+"	lunabond1 nude	",						
+"	manataudapat instagram	",						
+"	pasha pozdniakova hot	",						
+"	stripologia	",						
+"	adriannaeves police	",						
+"	collyn queano	",						
+"	ini_ceritaku03 bugil	",						
+"	lina noory bikini	",						
+"	amirah adara leather pants	",						
+"	bethfiit x	",						
+"	elizavetabom biography	",						
+"	hannah althea abian porn	",						
+"	yana ruppel por	",						
+"	arthitwhay	",						
+"	iamasiadoll real name	",						
+"	mellstroy katya	",						
+"	shaine macela age	",						
+"	sofia caliano	",						
+"	tifany wallemacq age	",						
+"	ameliaadamzskits leaked	",						
+"	babykristymi	",						
+"	iam_amelie007 official	",						
+"	liza bg asmr massage	",						
+"	mariamartskaya	",						
+"	me_martiina forum	",						
+"	mytinymuscles porn	",						
+"	ms foxy fanpage	",						
+"	eversunneva	",						
+"	klaire castrodes	",						
+"	mademoiselle_001_	",						
+"	neringa kriziute xx	",						
+"	viptoriaaaa hot	",						
+"	eatpraydong	",						
+"	hazelnut9999 porn	",						
+"	karinka petrova	",						
+"	natalieyospina instagram	",						
+"	siyenmacela	",						
+"	siyeynmacela	",						
+"	tana rain ᡣ𐭩 @ itsbabytana	",						
+"	daynia leder	",						
+"	ejahazel live bar bar	",						
+"	linkbox telebox	",						
+"	hhfernanda nude	",						
+"	hipsolmi	",						
+"	iamasiadoll facebook	",						
+"	ini_ceritaku03 sexy	",						
+"	mellifelice	",						
+"	roselew1s porn	",						
+"	aaliyah yasin bikini	",						
+"	amalia davis	",						
+"	bbobbo_ra_	",						
+"	bnikuwu	",						
+"	kulakova polina hot	",						
+"	napakon jiraruchchatapack	",						
+"	suami monica ardhea asmara	",						
+"	viptoriaaaa	",						
+"	akroshecka	",						
+"	amirah adara heels	",						
+"	asmr mass massage steffi instagram	",						
+"	janed404	",						
+"	myvonnieta bikini	",						
+"	arina grace asmr	",						
+"	okeu oktavia	",						
+"	silvia roy shita porn	",						
+"	yourdistractionrose forum	",						
+"	ann badte4cher name	",						
+"	chantisnow	",						
+"	jadelove asmr	",						
+"	presti hastuti live	",						
+"	vanja komatina hot	",						
+"	excinderella lingerie	",						
+"	fbyana bikini hot	",						
+"	neringa kriziute lingerie	",						
+"	oliveskinbaby instagram	",						
+"	badte4cher name	",						
+"	bronwin aurora bikini	",						
+"	momona koibuchi ig	",						
+"	silviaroyshita hot	",						
+"	dasha makarova mandy dee	",						
+"	jasminterryofficial	",						
+"	malejaquintero13 instagram	",						
+"	silvia roy shita exclusive	",						
+"	syakirah rolyn instagram	",						
+"	annallese taylor	",						
+"	danahammofficial	",						
+"	momona koibuchi live action	",						
+"	neringa kriziute tiktok	",						
+"	thatssofetchau nude	",						
+"	dly chan 18+	",						
+"	rizkimbambot	",						
+"	romica lyan cornito	",						
+"	mariam olivera	",						
+"	kulakova_po	",						
+"	권민서 솔미	",						
+"	devochkassevera	",						
+"	avaglasscott	",						
+"	adeline sasongko porn	",						
+"	mycah sasaki age	",						
+"	saramiaax hot	",						
+"	vanja_komatina	",						
+"	keynacecia exclusive	",						
+"	presti hastuti hot	",						
+"	badte4cher youtube	",						
+"	keynacecia live	",						
+"	frokenhedstrom	",						
+"	violante massimo di roccasecca	",						
+"	lynaritaa bg	",						
+"	natasha nice nude picture	",						
+"	itsbabytana من هي	",						
+"	cosplay ruru thakur	",						
+"	iamasiadoll	",						
+"	nivalislava latex	",						
+"	kim ochi berlian hot	",						
+"	linadiaa	",						
+"	gingery ksu	",						
+"	lucy hockings bikini	",						
+"	kirabilko	",						
+"	azi acosta in bikini	",						
+"	presti hastuti instagram	",						
+"	anastasya khosasih hot bikini	",						
+"	emmi1i	",						
+"	عکس سوپر ایرانی	",						
+"	apolsalangad	",						
+"	jena dammaya bikini	",						
+"	eugene chulitsky	",						
+"	novitasari sh live ig	",						
+"	jena dammaya hot	",						
+"	big boos	",						
+"	meri_babaian	",						
+"	vicidior eksklusif konten	",						
+"	joanna listwan instagram	",						
+"	neringa kriziute instagram	",						
+"	andrea2santos_	",						
+"	leng altura viral video	",						
+"	novita sari sh	",						
+"	hi_christineco ig	",						
+"	silviaroyshita eksklusif	",						
+"	devochka_s_severa	",						
+"	fbyana bikini	",						
+"	kinrris	",						
+"	maria martskaya	",						
+"	ava avaglasscott	",						
+"	laetitia lacourt	",						
+"	edalmi soukaina	"
+        ];
+
+        /* ============================================================
+           THUMBNAIL URL LIST  —  EDIT HERE (SEPARATE)
+           ------------------------------------------------------------
+           Cara kerja LOOP:
+           - Kalau thumbnailUrls punya 3 gambar & videoQueries punya 10 video,
+             maka gambar dipakai berulang: img1, img2, img3, img1, img2, img3, ...
+           - Kalau thumbnailUrls KOSONG [], maka pakai gambar default di bawah.
+           ============================================================ */
+        var thumbnailUrls = [
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrDCdZy-XgVOyg-6ZDF4OvYdDOpBiWFd_hrRl0oxStty1heJRJAFyH0cea1u5AVzC4ipbeMlegQs5q1iapvw19i4ZaPFyZtbKbP1UdcBKhp21KMtpvIVUeaB7Xay4gYIasEe7Z9E_HNK5_lsHFjvHhB8zWRUWcWaJRQgTBMKLHReLuwgXXKunpfdVZxGY/s1600/xxx01.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEim7krbC_jJBdnlfSPhhHLQa7jb13NeWN9qDuypsR6jhzutBnyoKQuBSGmIeYKsbafauiHEEylkltPVFBpSZm5IknyZkCr9LQnE9BtrL9qWCXZAbMi9WMAEYZxlwmZg-e9X-nnTS8LqugnSFchtUmQCNdaizDYOU53SpnQIcHDv3x9rco5RN7ksa4FhBOM/s1600/xxx02.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-RvM0jUpKwPa2u1wRVKBqdPSlYjLd0KKLZm2Qi1AWopnZ1gajLdCMXa02ybM6CFaYte1InvF3OHRxTGVJrU4_QL9fzAldQuMx9q4XZ-YluSz0_B7bfGkZ5YCm9jlp-jnMUfgjLTIW9sb_MrUOCHlRKjbYp-jLYoEWz64WO2Y24rMHNc_CgMenJHXdRK0/s1600/xxx03.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhz3KG4PYbzSVJSC_nioyreGjexOLwBGk7QJ3qQD8NDDKquyagUU2vssmk0DmpqfOsxzDKPYTkY_aW2fSQeooL8OV4WsnemqjLFvTZoheWvZSKT5ouvovuvUEGXtAtG3RU756NRmaixkYtcjIwZr4ORv2ZpSwMkrb7uxk1wRY7XG9gKg6z5VhUwGziRJNg/s1600/xxx04.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmktnNUrLn6J_itU_ed34x6tI-IocSNs2LQzBl-71LvpShivhuvwKODTSfDIa3rzhEz7YGfYRK9B3sKrhhXhCLbgHGXqGqkFEmUqT0bH6toOrZSwZvRNI1E9WZaD_e2PdNkZZoyECIrR5OBdhLgGjqEz2YVv-JG_Rrrd-90ZW5L6yZq8C5QKLsVL1YqlA/s1600/xxx05.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisEs9wqZzCncGGAZymey5BDFsyCahF3dVuAGQnbypNMY5qiKoT-Y7-wYn4lIiEauanD-GPVMO2_SFHqFEgfdxZYTsgA4x13XyTCIzSNIEFWTEtDToW7ySJiFv1Yw0yY9W7WqeeQDExBtRDIR01uv8aTLvDLOl5JYOxFAoH-tXGVOEsjzh-yjhgJmKlk0A/s1600/xxx06.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5QYAXPU5rrFMWkPOG8PZRtCnQKkM1dqkh0qLSC5L-_phG1FHtuBulTR8lw16XjtYPqlAiesuRo-aGX0d_oupkzAAyKhTF4YyYnFtShR1TEGAeFrdY710qt5CdbzinweCBaEZ2q-jcykw0OR05xayEHcZQz4oAUehuu6gFDz9IUQNOSD4q2t91z80RdeM/s1600/xxx07.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTj-31DdZxOy5p7Ktr1gHD6h7MaThUFzqadQaFem3lG9-gfTAhnWE2yxDD6ljoqrdzJf8NV2JYdxDizyWrhON_iB-BDMvtewKYdjA7Etr40PI82jxBz-clw0GQNnoZviBcc9_z0E-N1snhs_2HKx9t2ylg3RGtaV-MEpqZG741Xvrt1yaZsh9JgltsSRY/s1600/xxx08.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEOICoqT2Q5hhj62Kg5mgulhyBtBzq40u-HFz2ZSMmeYyB0oiIDzuQzHkfB76U32rjYrME-Eh2H0YW-Lg1JXGGUMDjLBV7Ya7k7id2PZ6pACmAFKTquOrWs93IEcvl4F9rgCYimThVF1HvMmQ1XXnFS8iCDG9kNHJCzcHcT__VCbds1sHGXGfpiBSgarU/s1600/xxx09.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiohTDzdyLhkwkM-t6Bi-M7K5oyEbdajQEIxGcYub8GDZwMgKJchlGmkLl9yi8kP9iUJQ7n2BSCp3qYRwGkjFdJBDlxe3N07WcOqlybg-m1yQcQ9y2ZVZ5yhuSA59T5Mdjnq-6-idGYWXDjJbep9jEkgiU3PAYDEi3nOkhwVlXSBKXxh2whz5mQbrvkIFw/s1600/xxx10.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-xzyXcaAhz4Hd6qRKZqoGNtjkX2pElS3B54fEZeCl5rkyp3iXEthVHivj8i_hYXgMRK0mn2w53lWwca153Th8iqGjHFbJ3htFUXjHJHgCTN02-k-NV_jaM7Q1rcUVm9wC0irl2hff2KTGpgLQ6eNK9DFUqjCpdQjwMBrem4CbUJDtAvCl0FjFHQAAf0o/s1600/xxx11.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKJ3WzhprB7GhQzhfl-hriQgJJpYtY1sHzjEJCTv65AKlImqQCkCg6XlNbnB1GIk5sDwMZ44bdGXwAGj48RVxzcarjww_SwPxo3BH1r15WiYgC7oNAIBR3UzxeAv8UWLElbgA-393Xc9_kVFBhcx4GTb-UJuTzgkOcfbD0YeoDKV7M8u63JCgjhyBNMLA/s1600/xxx12.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpTbEkTzTDqnATREQZqX9H1ym9fwmQKELWo5wL67JfMW2zT8LaLMWImr-CA3HCHGiCZWjvjDpHigH-oGEQ3bc94X6zYmFDR_rrpEbxpSSB66ejZkJIJJD909_I4tgz5Xihuxl90H6dSkjBYhJZdWUtCtWmhnQFGsftI2scl-qPJ7tlqYM9xoN2Ch3NXwA/s1600/xxx13.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEistdwbG7extKtac0KK1Jo1PLRGGw6aICC5abJKoUbaIFUPjfipi6uJGwosAxl3-l_3Iv9-Xup2wEejaCrrh1IV9axa9LclV6tgx-pbNi8w7vuuCrCnJXh7-ce1cqj0Wlg5b8YacrFF144Q3k1NtI3tSnWrPivKtxvB5prBQp3dbBDhW39lcE6R2F95Z04/s1600/xxx14.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEie9H0CnJEYOF70bxfHKPuj7mTtzfzzg4_Ym2RDL5CqssbvjGDq6xsVrk51kWpF9ZkJsWaw7Lm9FOBvtcLHY-MzJhyphenhyphenv9NHc5fqjieufeuKT_Fj0nazJy7rYxQF5kSwyUuJFcJEQGvFCQUXVJ35ePZH6eWwxRsxWPV7E1sjLylti7vbZ_paZcOuBS7hOAJ4/s1600/xxx15.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuJy8G3pYq6qqZxOcrNUScXY_OovgljK_kdKuHidE_c0DNZx3sl4RNvwBrV77aED_eezn17BllFfQz-JjDodKCNUzdjb4-5ixXli5fIhrQE5LWPRzHR6WeATwjSZ5hjhmg2Pg1GFWk59GZEaCzLrSgUsQunjAkn3iJNUm_zbzwh5PiIplNb25xy4WM-c8/s1600/xxx16.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimk3837wUHY7F9LOqv7zH8q9Bdmco3o0aK0uiev5SNXAiVLXEfSiNUzNnvJcCty5QbHZEb8svs5KDUDN-Q5mgOhnGSiiTAEAGQWMec6jt2gJnDGqEJ9Q6SiygGj-p6TFEdYwLjEFjfsjeTwDn0GWnyOutGXToeGcFOxcMpRjaZ8-tKTZXMhD48eqJet4s/s1600/xxx17.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0BpV8Wm7GNrnNVp6hQZkV0hu4bkawQaNHB6aD5m096HEDL6nvwJZ_yNK_V6fS_6kBU0rei4BxHnAfTXg4lf-BF3nmzSrHgipPeNGuIKghaw8iwsdJMF0qXz4DsuyALZBloydt-gNMQVeHOiH1xA8B6Qqn0XIBuPZ3saIk84kvKA6_oqC7B5Uix1KI-4M/s1600/xxx18.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLUPOCMrDIH3-HkIp6mKiRm5Hzi5ePB7vmVejC49pHtZtzjYgAI3gYT8prle9nNXO1iPbKK4EDr1tkl7KirRTS30Rfj1UOOy8Vz2TxFiWObR3-nhgw2Rw7aWo5U7ZpIaiMHWpOxtBRi0Ck0B2d_eFoojGNBzn1z_i2c4Fo1QkcxmzvU6OHFg0TncjfGjs/s1600/xxx19.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgMU0NOZOgBcw9zvdkslvLy5gXhH_qiwt983dh5Ch12x5KXzv4GJ2XX1-fB_OrXU5dEQp8ZL7QGut3UQhbCxLKVC11bqlGAqH3mikbpcSLqPhTWk7LXFMP-ZBHbwX1LujqDNzJBC1hpXvW0h_OcEjwIkz21GTTUWY21jmJcyxheiOpHkamigFP6pUPBqhU/s1600/xxx20.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYjhF12-HYH4ADPljmV7Ye92xLkkS1sBcvNAlGEDLRQgkXsstpu6GXhfQ6j_uZggNoj-jsdAU-DCfen-JXcZPZyaknDiuC-BrE7J4Am_nSTo7fUrCXEq0_aAuHX81_QKqNwX7J-bsjq2EYdkRGs1CmOEkELg1-Cq74OyFDl8zOaGdjPEEBRU4o1GofxP4/s1600/xxx21.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0fZSFialiajfL0ev1bLFy1DveJCAjyrsrgzKB8w82ZdRo-k0xpn8jVb4QqXRM0S_w_28rihrsRCm4myyyh6ZxlkOI5SuQynjJK1xuNl0AJ4PVDVinDWKllSyx5Cy1DbKfKnGsSiRyWbe7ahikUjlFQi8jxcZQLV-JmqlvE0GrZl68tg7Rb823Gn0YWXE/s1600/xxx22.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEga84v6bcUBu-RyXiEKpRWjC5as62LnBJ89Rc3d9qss6L3avXXXzLjDST-rcJVKNCoLxV4o2cESv9LiNDGEnMMWI2Keeu8YeLU16g1mQd54rKH7zJeM4-0fqjWL0GQAwH7IlDuI2KjqtDCNqqeDI654yppUr2y-6PsdVfyFq2HilG-I5p20UtPRVq7j_Gw/s1600/xxx23.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAw62dr-GPl_fPz5w_Djc14bHDc5r0qs7GfxE-9ZdjvgtqP36gd9TjK9Pa51rgAlmYK_RDW0nkKehdA9P9ymEJJ8aQu-Zc5E-kkqxkXeN1-P1us3nckdE4DcbMiQRf3xJV6ZioTOxHCZsXvAzjDFMwl06IYzFN6AgO_QQ1IsQbHKeKe-2TPZ7-F0EwCqs/s1600/xxx24.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdU8ZLiZWCO4c2uCqf7pzlHhI5X03lmYelqrTqnXsRK1VZc62xyLKGkyr6JT7bnCSu54lkjgR09KXvanUGnt6CnX5pwVQg3DnKYSITA1au9y4ln5NOmSKXt2UW7EhPznLYU6IwwoQamGeVxIBuQS5alVNSOk1hUmotjag_gwwE91K2xtRK_ipqsKzp2Ls/s1600/xxx25.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfyA4tlaA7W8NFXwnSRFxzQycEozXBivMmDtfmWCDNt5zQ-Vp5aLdwppY0FE9NY0xDtUYPTzfgTwrROStWHimFrWfR2h0e02kvRIUIenxb_5_5pmCMvj-D2GSVKFRYPORbWMQgYQVXINGmlnv9CX5Z3nZaniPqL88saiXMaf63BQwfok9m3gGBeMbzrUk/s1600/xxx26.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioBAUM82w9wIg01JtpsTt167MIdt24retpFoN-GvgmBzimA-W10Z75GhjdrWoMRbK0VxLByojIHp9lSmcSHG3FFbbxQczLJXoZopkVpKdw0xZvdKoNmrSk_cuXlYLTyTiVPAuMj2aqyZHTLAYzFsE5WdAzrOJQeUg6Q7BDwTv_TDYFIuojlrYB1wDgQHE/s1600/xxx27.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj0-IeWqO-trjrAifxlKi5_trI4qkTrdvNM1M4lw85gtuKt0-6ZWpTjvqgyFevGa3AnZjA7pl7YtMcXt9m-DSLCSaq7Egi8WGabwW_Un35eeaVTBnidslKxehURwQNH7F4bnISIExK9W2atHhpuliZ6mKzs8ecYrRTfbHYwH_I4DjjyHtrKpwn4OzS_xAg/s1600/xxx28.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVbuZ6OwgItL30JOJgjqPJDuKiwjOOPK2UfmTY55uACwdlefPhFbDFU1BBjvDuimzdduj9xvgRH_VBO9jB8iRGboFda44nJRro2x87KktUMrj2JVop-OJBFmfAHCyj-W_luAnNphfOuLZTtAUFJ0TBT6ZcBvSY4we92s0jjAWPczXjykKId-jWShheN8k/s1600/xxx29.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyIGmkmBUW7PrZhu7jL3sa0FEWEaDmdmB16-KegYIRmMMJGEn1eUjMKpHMgUvUBUq8J3q7X5H1Edwy_Qce2TADrgrWr6XvnGyXYQchDtPjaq2SRp_NvUJdpliZi1nYcUpPtgJnPPtvG2eEbkEWh6ahyphenhyphenMVbBi_9-EZ_iR_QYZfx5ikQmuTFhdrqnnB6aUs/s1600/xxx30.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiR_vzRHfEW7Zuhy5nrJhcnXimXj0R7YNqoeS0xM3zpR1wNnXDBui_EzNhu7CtLIbH6_mbQcSva9yjzOwkYavZKkdgJ6haIq4sznEAoMBVPaOCd3PPsaRtdnqH5INTaZVZln5FDEJVzPparf2h87-NtAdPHvxTQJRFukgftxVbTMhwQ7exUOxwxRnVWOGU/s1600/xxx31.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqCat00AeeBELb-5CbIsuOCN4QOosHcJQuS9UMHi5ajyTdUSsvh85Fz0LLu9onUX1N_ZNURrtPVWKfq3wJaXuwq5jLiQcEyeYn-7uPP4CiFCp5wqVSRxxAHjCz87jlqWbnlQvCTiUFJuVtIXZlBJ38ez1zmIoSgF-Fp8qOFcx_6Rnm0Jlr0IbK3wr4rIc/s1600/xxx32.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU6d5Uc3R5warP89Bq48PSh1HjVb5Tse6FQ7L4N_dGR9jifacC4oW_IRtN00Gshs6rr18EPSEPFzq3lE55BusF6ndF3OdVI1znFNC_4gAYjqtfHtPHduPLXSr6UyAgGdZ9Q7YavOmrIjjxxGV8yA7lIJ6PnksKI1L4InviSKepUAuTrrB_XqZ0hPC2Ac8/s1600/xxx33.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSfTkwRrHGczyb6MZ-PEgh6lchnWIiRU6d9x06xo1Py4WXJdzvLbD91qgbgxHRmJQWx-3k20Xq3ks02WqRJPki8J-j4vf9C1SmZvRFo2IiuPirLMiPw0ql6tlg_VjYnOSKycNgwFlHju0Y3z787Qlm4SotKpPXbZWufXq3E0CqDNgsRTXkeBXsVPwgTEA/s1600/xxx34.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlxsFHgFG9ueQlhrhP3VU2nEqQXI1hyphenhyphenROVdCT7SVI310JOmHvE1S62Rmx75acjT6Y_LHylyR7V65Z6pXTmLeZq3SLEN5bABWR-8Y0NPuAFKy_RiKk8am0imCpx8YvQyIurWzJJK0wlMALBLP2b19sNMv9WADhECGlPhyphenhyphengocBB9gaN6YYA82gzmq1fYSFM/s1600/xxx35.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd366HuFQzxMpbXwHdhWRlEwPPVLpk9GMMpSkcfIhk-W5KUV1Ht28HOCEuMgLUS7uDKwJkH3o3Bvw7VUuxCLllcVBZNAk3GpVAlmDa1MQrpU27xBMg5ebVHfw0NWN1f2_laAGYzGxiR2lYgeoaUnRe8BZ0ZujGGPZ5k6gbWDG90Hjy7MlMBajDY5CNjwc/s1600/xxx36.webp",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiDRWTPCyNLqgt4o-Gw2IzpPzL5aYvxoEIFQvLQtaPaRJ1vifULdUbn1oErbhyphenhyphenClxlluJqwxQ6MKPR7XjIp0QAX4aL3qjZBDe10IxTqTqY0VTieL3-X-XthPqcEi0uoyCXL_EdGjQHyKINDgIC48d-ZsabahyphenhyphenKdwDYkkAFao05sbmY6HaMpFfY2Obte3KY/s1600/xxx37.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoOsB2yZqS4-ynmYKfjr4c3lIOywdR5QAN5eYjO6hFB0RBe2X-sc6r9cIDT8sVIEFoaLImcwBhb4IpQCAgI7NiEBuUtjqZVtgYEk9qsC3bExlyOfFdJyQyasMSw2xGgAU9EqeXOWhJtVFXbgevMV-kSxE_Yn79KMNSt7DuPKFHceORsG1eVlDU8SwVTg/s1600/xxx38.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUfQ0-0eUYOpoQpQ439L8gsVnmzI860l3zCYvvCf5NLR8HQlbknRLp0rUsKQSst92KJx1fU7SiwDVgupIAYcR1AqIwT_7UFjgdPShOXrfQkdr2thEDaiBbjQs7KXP-UYOTRzPTzbdI0v6VGELSgAbceR_QT4JHp2-ATX7QpLuqOsiQbAfU1hPoEnwDdsM/s1600/xxx39.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguOtkTqFZPM2B3wLqUfKl7Si7r8AUF5KZJlAuGEAAJFtdWLrYf0sKHErJk1rv7WoRh5Hqqvvpk7J9fY8ipI8xttxiUwbDvuNkrFdSrwR9JPM9NGOdQP-h-lpfj3yG8mWVU3wtgK_KpPfTefFCB0jGHDhco05PMnlP4HLUlSuspDaW6pqxZaazwtNjz5do/s1600/xxx40.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHrbCP4-Oq6QCOq8ugS34NRx-LXwVKsXRv6bXuicwieePr92CzjozLiG4bRZcPbrp1TYjunRNrMGSbh0NEOqSLlpXod-XXt9I-fXvVdgD2G2CFFTU3HD85Wp0IuJE6INrDwX_nDmRK3K5rzTjWczQeUytcWxUahANJfAyJPLOVThAAIUvOiQG6HRatyU4/s1600/xxx41.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy3djCR6VxgHtftGw2xUDUVxLjtKIrKdDvil9ej_ueO2ZbLrNsH62MZVkeB4TkDmmdlCB1Ed4EZVkmWu9An_1eEZmdErjMelO6SVQ1ICV288f-s2mvct80lKqOdL0Np2V1XfeWv2rytDnl_AMr5f7YUGMI43VhSingeO7thbej1zZxtwOdBVNkFEOnmrc/s1600/xxx42.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjF0TsYgtfr5xwytlStyq_qRN67gvVc5WeGhvAHOH_FYxdCbfxkuRedmS0LnoSPD7_boAMjBodYVgUl0lzXCLRe0rMMt1Y4-EGqc0kBQ5LhX8CCNuOjwF87iC-dfOAF8xUVu2e9Z7CEJ9p63hOxekiK2aJCvJo7ti53LMKo_ln1AXh7ccjNyjcqweV-kwM/s1600/xxx43.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhi3OHCah3dK5RjS4uPgT4RpFb8cI11Xv-5Mx1qoV64qd-8r3DBJvqx2LwgC3WngbxiZ4IHiiyhwk8mgnP8t5sOX_T8r9QeeJg9giw9HsMlLW7m4woHjcbc20hJLOU7ugGE6gnAVxA3I5qWveGegAnaDnMgNjqAjAtzRm4iHe_YUepTSIr0Ty1G3iiCttE/s1600/xxx44.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOPOYi9J9DsdSqMMGfjxFDG82AkVAKsIOzkAersJprtFKOPBEEbVYoPED3cfUOKr1_YHuxX0A7S_qen0lasB6uolhAoxZiTern7ljjrXTDbONp-BKLasXsMT_aSHgSqiPqK_kG9T5a4yYK1r3AYOXu83UYTrzLTJUsyzF2bxlGpYVvOy65vjHT0fqnKXo/s1600/xxx45.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj18_sHeCzZw_U7galvQ3NGG02xmJx0fbF8SZ5vbaXz8Sa0nsaW5aeFFUlsAxVT9JxfhJEfxurHbyS649u6lTsKQGBllH6vU99IeASXPFj1bd9-zvM9DVeQ3RHSvG7Mt_BCvKJC9645a8rHF5DT68OOwnZpCvOoP5aGAU8L6flgUxp-X7CySze-4hSomMY/s1600/xxx46.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitZ1v-2qjAZqDD5znbQzjXImeVnA3RuqlrjDYiel2YyZHPjdlFkKVpwJb0-274orvEw8hFGXDfDWmMoO4s7MkuthbMaWs2LyipGITUYbNImB52ZHtNRJmuz7Mrq_5UdQ5vCUyhpT0Wn8xKQjlNeFqcA-ip7g1HP6CPuOhHFYbwAOPKlHQj5ag1-zPuW9c/s1600/xxx47.jpeg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxf1KiPttsQpQY9UdHjE9xkkhCP22BqjZzUSo0GvmIH4HDiFTWY6OdlpSrUReImOWIyIZbldnwBVE95RBfvvYWaQ6fVsetI0v6WVh-YOK7ghKksg5IRax9Q68hNlbv7Je-dgAJGm_GSwSAtTh1jRwv-t2KizmnGK3kmIidvXyoSemNj_p-hgS9qArOfjE/s1600/xxx48.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjkTLiUskRGnz6SVuvnMDrFh9GoyaJQpyVVewjh_LE3m2dlN0b9oIQoZHolB3LtudLp3BpySFw8e7tSXQ4oS9TEjWhHTEpm878FL22nGhD7zGUJQbQXBS_ZHUPC41DDqnzf4_O75O0PvKjcrCsUCpJU1UNeKznItkNAO7gfAQNWeVVdaVWOUnOYjqPdc08/s1600/xxx49.jpg",
+"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRvczN0-cIsUCF_NiOy1KYi5nQp0TdNeHY72xjGmBj-Zt7v0on8dXMSlRM4bpkdRnjlAccR5JrUhJ2MRO4QZTgx0UW2jMeOnOBBULRrRCbDnrM4lohCXwtzS8Deg7QBiJCE-RXFB2XHODqTcE5d1_dAmG5uRmbaphSm105up_D7RXijkiq_W6DwB08rWA/s1600/xxx50.jpg"
+        ];
+
+        /* Gambar cadangan kalau thumbnailUrls benar-benar kosong */
+        var DEFAULT_THUMBNAIL = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="262" viewBox="0 0 300 262"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%23E0C77A"/><stop offset="0.5" stop-color="%23C9A961"/><stop offset="1" stop-color="%23A67C2E"/></linearGradient></defs><rect width="300" height="262" fill="url(%23g)"/><polygon points="130,95 130,167 195,131" fill="white" opacity="0.9"/></svg>';
+        /* ============================================================ */
+
+        // Ambil thumbnail dengan sistem LOOP (tanpa picsum fallback)
+        function getThumbnail(i) {
+            if (thumbnailUrls.length === 0) {
+                return DEFAULT_THUMBNAIL;
+            }
+            return thumbnailUrls[i % thumbnailUrls.length];
+        }
+
+        function cleanQuery(q) { return q.trim(); }
+        
+        /* ===== GET SUBDOMAIN NAME ===== */
+        var hostname = window.location.hostname;
+        var parts = hostname.split('.');
+        var subdomain = 'Site';
+        if (parts.length >= 2 && parts[0] !== 'www' && parts[0] !== 'localhost') {
+            subdomain = parts[0];
+        } else if (parts[0] === 'www' && parts.length >= 3) {
+            subdomain = parts[1];
+        }
+        var brandName = subdomain.replace(/[-_]/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        
+        document.getElementById('brandText').textContent = brandName;
+        var sideBrandEl = document.getElementById('sideBrandText');
+        if (sideBrandEl) sideBrandEl.textContent = brandName;
+        
+        var baseTitle = brandName;
+        
+        function formatTitle(q) {
+            q = cleanQuery(q);
+            return q.replace(/_/g, ' ').replace(/\./g, ' ').replace(/\s+/g, ' ').trim().replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        }
+        function getDuration(i) {
+            var ts = 300 + (i * 137) % 1800;
+            return Math.floor(ts / 60) + ':' + String(ts % 60).padStart(2, '0');
         }
         
-        themeBtn.addEventListener('click', function() {
-            body.classList.toggle('light-mode');
-            var isLight = body.classList.contains('light-mode');
-            
-            if (isLight) {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-                localStorage.setItem('theme', 'light');
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-                localStorage.setItem('theme', 'dark');
+        var isMobile = window.innerWidth < 768;
+        var itemsPerPage = isMobile ? 12 : 30;
+        
+        var lastMobileState = isMobile;
+        window.addEventListener('resize', function() {
+            var nowMobile = window.innerWidth < 768;
+            if (nowMobile !== lastMobileState) {
+                lastMobileState = nowMobile;
+                itemsPerPage = nowMobile ? 12 : 30;
+                totalPages = Math.ceil(videoQueries.length / itemsPerPage) || 1;
+                if (currentPage > totalPages) currentPage = totalPages;
+                renderVideos(currentPage);
+                renderPagination(currentPage);
+                renderBreadcrumb(currentPage, activeTag);
             }
         });
-    })();
+        
+        var totalPages = Math.ceil(videoQueries.length / itemsPerPage) || 1;
+        
+        function getURLParams() {
+            var p = new URLSearchParams(window.location.search);
+            var page = parseInt(p.get('page')) || 1;
+            var tag = p.get('tag') || null;
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            return { page: page, tag: tag };
+        }
+        
+        var urlState = getURLParams();
+        var currentPage = urlState.page;
+        var activeTag = urlState.tag ? cleanQuery(urlState.tag) : null;
+        
+        function getPageQueries(page) {
+            var start = (page - 1) * itemsPerPage;
+            var cleaned = videoQueries.map(function(q) { return cleanQuery(q); });
+            return cleaned.slice(start, Math.min(start + itemsPerPage, cleaned.length));
+        }
+        
+        function updateCanonical() { document.getElementById('canonicalTag').href = window.location.href; }
+        
+        function updateSchema(page, tag) {
+            var base = window.location.origin + window.location.pathname;
+            var items = [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": base },
+                { "@type": "ListItem", "position": 2, "name": brandName, "item": base + '?page=1' }
+            ];
+            var pos = 3;
+            getPageQueries(page).forEach(function(q) {
+                q = cleanQuery(q);
+                items.push({ "@type": "ListItem", "position": pos, "name": q, "item": base + '?page=' + page + '&tag=' + encodeURIComponent(q) });
+                pos++;
+            });
+            if (page > 1) items.push({ "@type": "ListItem", "position": pos, "name": "Page " + page, "item": base + '?page=' + page });
+            document.getElementById('breadcrumbSchema').textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items });
+        }
+        
+        function updateHead(page, tag) {
+            tag = tag ? cleanQuery(tag) : null;
+            var pt = page > 1 ? ' - Page ' + page : '';
+            if (tag) {
+                document.title = formatTitle(tag) + pt + ' - ' + brandName;
+            } else if (page > 1) {
+                document.title = brandName + pt;
+            } else {
+                document.title = brandName;
+            }
+            var desc = getPageQueries(page).map(function(q) { return formatTitle(q); });
+            var meta = (tag ? 'Page ' + page + ' - Tag: ' + tag + '. ' : 'Page ' + page + ' - ') + desc.join(', ') + '.';
+            if (meta.length > 155) meta = meta.substring(0, 152) + '...';
+            document.getElementById('metaDescription').content = meta;
+            updateCanonical();
+            updateSchema(page, tag);
+        }
+        
+        function updateURL(page, tag) {
+            tag = tag ? cleanQuery(tag) : null;
+            var url = new URL(window.location);
+            if (page > 1) url.searchParams.set('page', page); else url.searchParams.delete('page');
+            if (tag) url.searchParams.set('tag', tag); else url.searchParams.delete('tag');
+            window.history.pushState({}, '', url);
+            updateHead(page, tag);
+        }
+        
+        function renderBreadcrumb(page, tag) {
+            var bc = document.getElementById('breadcrumb');
+            bc.innerHTML = '';
+            var home = document.createElement('a');
+            home.href = '/'; home.className = 'breadcrumb-link'; home.textContent = 'Home';
+            home.addEventListener('click', function(e) { e.preventDefault(); window.location.href = '/'; });
+            var hs = document.createElement('span'); hs.className = 'breadcrumb-item'; hs.appendChild(home); bc.appendChild(hs);
+            var s1 = document.createElement('span'); s1.className = 'breadcrumb-separator'; s1.textContent = '›'; bc.appendChild(s1);
+            var gal = document.createElement('a');
+            gal.href = '?page=1'; gal.className = 'breadcrumb-link'; gal.textContent = brandName;
+            gal.addEventListener('click', function(e) { e.preventDefault(); navigateTo(1, null); });
+            var gs = document.createElement('span'); gs.className = 'breadcrumb-item'; gs.appendChild(gal); bc.appendChild(gs);
+            getPageQueries(page).forEach(function(q) {
+                q = cleanQuery(q);
+                var s = document.createElement('span'); s.className = 'breadcrumb-separator'; s.textContent = '›'; bc.appendChild(s);
+                var tl = document.createElement('a');
+                tl.href = '?page=' + page + '&tag=' + encodeURIComponent(q);
+                tl.className = 'breadcrumb-tag'; tl.textContent = q;
+                if (q === tag) tl.classList.add('active-tag');
+                tl.addEventListener('click', function(e) { e.preventDefault(); goToVideo(q); });
+                bc.appendChild(tl);
+            });
+            if (page > 1) {
+                var s2 = document.createElement('span'); s2.className = 'breadcrumb-separator'; s2.textContent = '›'; bc.appendChild(s2);
+                var ps = document.createElement('span'); ps.className = 'breadcrumb-current'; ps.textContent = 'Page ' + page; bc.appendChild(ps);
+            }
+        }
+        
+        function goToVideo(q) {
+            q = cleanQuery(q);
+            var idx = videoQueries.map(function(x) { return cleanQuery(x); }).indexOf(q);
+            if (idx === -1) return;
+            var tp = Math.floor(idx / itemsPerPage) + 1;
+            navigateTo(tp, q);
+            setTimeout(function() {
+                var items = document.querySelectorAll('.grid-item');
+                var ii = idx % itemsPerPage;
+                if (items[ii]) { items[ii].scrollIntoView({ behavior: 'smooth', block: 'center' }); items[ii].classList.add('highlight'); setTimeout(function() { items[ii].classList.remove('highlight'); }, 2000); }
+            }, 300);
+        }
+        
+        function renderTagCloud() {
+            var list = document.getElementById('tagList');
+            list.innerHTML = '';
+            videoQueries.forEach(function(q, i) {
+                q = cleanQuery(q);
+                var p = Math.floor(i / itemsPerPage) + 1;
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = '?page=' + p + '&tag=' + encodeURIComponent(q);
+                a.textContent = q;
+                if (q === activeTag) a.classList.add('active-tag');
+                a.addEventListener('click', function(e) { e.preventDefault(); goToVideo(q); });
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        }
+        
+        function renderVideos(page) {
+            var grid = document.getElementById('videoGrid');
+            grid.innerHTML = '';
+            var start = (page - 1) * itemsPerPage;
+            var end = Math.min(start + itemsPerPage, videoQueries.length);
+            var videoCount = 0;
+            
+            for (var i = start; i < end; i++) {
+                var q = cleanQuery(videoQueries[i]);
+                var item = document.createElement('a');
+                item.href = '/dash2/?q=' + encodeURIComponent(q);
+                item.className = 'grid-item';
+                item.target = '_blank';
+                item.rel = 'noopener';
+                item.id = 'video-' + i;
+                item.innerHTML = '<div class="video-thumbnail"><img src="' + getThumbnail(i) + '" alt="' + formatTitle(q) + '" loading="lazy" decoding="async" width="300" height="262"><div class="play-icon"></div><div class="video-overlay"><h2 class="label">' + formatTitle(q) + '</h2></div><span class="duration">' + getDuration(i) + '</span></div>';
+                grid.appendChild(item);
+                videoCount++;
+                
+                if (videoCount === 4 && i < end - 1) {
+                    var ad = document.createElement('div');
+                    ad.className = 'ad-infeed';
+                    ad.innerHTML = document.getElementById('adTemplateBanner02').innerHTML;
+                    grid.appendChild(ad);
+                    videoCount = 0;
+                }
+            }
+        }
+        
+        /* ===== PAGINATION ===== */
+        function getPageRange(current, total) {
+            var delta = 1;
+            var range = [];
+            var left = current - delta;
+            var right = current + delta + 1;
+            var rangeWithDots = [];
+            var l;
+            
+            for (var i = 1; i <= total; i++) {
+                if (i === 1 || i === total || (i >= left && i < right)) {
+                    range.push(i);
+                }
+            }
+            
+            range.forEach(function(i) {
+                if (l) {
+                    if (i - l === 2) {
+                        rangeWithDots.push(l + 1);
+                    } else if (i - l !== 1) {
+                        rangeWithDots.push('...');
+                    }
+                }
+                rangeWithDots.push(i);
+                l = i;
+            });
+            
+            return rangeWithDots;
+        }
+        
+        function renderPaginationInfo(page) {
+            var info = document.getElementById('paginationInfo');
+            if (totalPages <= 1) {
+                info.innerHTML = 'Showing <strong>' + videoQueries.length + '</strong> videos';
+                return;
+            }
+            var startIdx = (page - 1) * itemsPerPage + 1;
+            var endIdx = Math.min(page * itemsPerPage, videoQueries.length);
+            info.innerHTML = 'Page <strong>' + page + '</strong> of <strong>' + totalPages + '</strong>' +
+                '<span class="info-divider">•</span>' +
+                'Videos <strong>' + startIdx + '–' + endIdx + '</strong> of <strong>' + videoQueries.length + '</strong>';
+        }
+        
+        function renderPagination(page) {
+            var pag = document.getElementById('pagination');
+            pag.innerHTML = '';
+            
+            renderPaginationInfo(page);
+            
+            if (totalPages <= 1) return;
+            
+            // Prev button
+            var prev = document.createElement('button');
+            prev.className = 'btn-nav';
+            prev.innerHTML = '<span class="arrow">‹</span><span class="nav-text">Prev</span>';
+            prev.disabled = page === 1;
+            prev.dataset.page = page - 1;
+            prev.setAttribute('aria-label', 'Previous page');
+            pag.appendChild(prev);
+            
+            // Page numbers + ellipsis
+            var range = getPageRange(page, totalPages);
+            range.forEach(function(p) {
+                if (p === '...') {
+                    var ell = document.createElement('span');
+                    ell.className = 'ellipsis';
+                    ell.textContent = '…';
+                    pag.appendChild(ell);
+                } else {
+                    var numBtn = document.createElement('button');
+                    numBtn.className = 'page-num' + (p === page ? ' active' : '');
+                    numBtn.textContent = p;
+                    numBtn.dataset.page = p;
+                    numBtn.setAttribute('aria-label', 'Page ' + p);
+                    if (p === page) numBtn.setAttribute('aria-current', 'page');
+                    pag.appendChild(numBtn);
+                }
+            });
+            
+            // Next button
+            var next = document.createElement('button');
+            next.className = 'btn-nav';
+            next.innerHTML = '<span class="nav-text">Next</span><span class="arrow">›</span>';
+            next.disabled = page === totalPages;
+            next.dataset.page = page + 1;
+            next.setAttribute('aria-label', 'Next page');
+            pag.appendChild(next);
+        }
+        
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }
+        
+        function navigateTo(page, tag) {
+            tag = tag ? cleanQuery(tag) : null;
+            currentPage = page;
+            activeTag = tag;
+            updateURL(page, tag);
+            renderVideos(page);
+            renderPagination(page);
+            renderBreadcrumb(page, tag);
+            renderTagCloud();
+            
+            if (!tag) {
+                setTimeout(scrollToTop, 50);
+            }
+        }
+        
+        document.getElementById('pagination').addEventListener('click', function(e) {
+            var btn = e.target.closest('button');
+            if (!btn || btn.disabled) return;
+            if (btn.classList.contains('active')) return;
+            var page = parseInt(btn.dataset.page);
+            if (!isNaN(page) && page >= 1 && page <= totalPages) {
+                navigateTo(page, null);
+            }
+        });
+        
+        window.addEventListener('popstate', function() {
+            var st = getURLParams();
+            currentPage = st.page;
+            activeTag = st.tag ? cleanQuery(st.tag) : null;
+            updateHead(currentPage, activeTag);
+            renderVideos(currentPage);
+            renderPagination(currentPage);
+            renderBreadcrumb(currentPage, activeTag);
+            renderTagCloud();
+        });
+        
+        renderVideos(currentPage);
+        renderPagination(currentPage);
+        renderTagCloud();
+        renderBreadcrumb(currentPage, activeTag);
+        updateHead(currentPage, activeTag);
+
+        /* ===== HAMBURGER MENU SCRIPT ===== */
+        (function() {
+            var btn = document.getElementById('hamburgerBtn');
+            var menu = document.getElementById('sideMenu');
+            var overlay = document.getElementById('menuOverlay');
+            var closeBtn = document.getElementById('sideMenuClose');
+            
+            function openMenu() {
+                menu.classList.add('open');
+                overlay.classList.add('open');
+                menu.setAttribute('aria-hidden', 'false');
+                btn.setAttribute('aria-expanded', 'true');
+                btn.setAttribute('aria-label', 'Close menu');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                menu.classList.remove('open');
+                overlay.classList.remove('open');
+                menu.setAttribute('aria-hidden', 'true');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
+            }
+            function toggleMenu() {
+                if (menu.classList.contains('open')) closeMenu();
+                else openMenu();
+            }
+            
+            btn.addEventListener('click', toggleMenu);
+            if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+            });
+        })();
+        
+        /* ===== FLOATING HEADER SHADOW ON SCROLL ===== */
+        (function() {
+            var header = document.getElementById('floatingHeader');
+            window.addEventListener('scroll', function() {
+                var y = window.scrollY;
+                if (y > 20) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+            }, { passive: true });
+        })();
     </script>
-
-
-    <!-- ==================== BANNER 06: TOP ==================== -->
-    <div class="ad-break">
-        <div class="ad-box ad-desktop">
-            {% include /ads/banner/06.html %}
-        </div>
-        <div class="ad-box ad-mobile">
-            {% include /ads/banner/04.html %}
-        </div>
-    </div>
-
-    <!-- DESKTOP NAV -->
-    <nav class="desktop-nav">
-        <a href="/"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a>
-        <a href="/contact/"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contact</a>
-        <a href="/privacy-policy/"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy Policy</a>
-        <a href="/terms-and-conditions/"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Terms & Conditions</a>
-    </nav>
-
-    <!-- MAIN LAYOUT -->
-    <div class="main-layout">
-
-        <!-- LEFT SIDEBAR: Banner 05 -->
-        <aside class="sidebar sidebar-left">
-            <div class="sticky-ad">
-                {% include /ads/banner/05.html %}
-            </div>
-        </aside>
-
-        <!-- MAIN CONTENT -->
-        <main class="content-area">
-
-            <!-- ========== FEATURED ========== -->
-            {% assign category_posts = site.categories['pict01'] %}
-            {% assign featured_posts = category_posts | slice: 0, 5 %}
-            {% if featured_posts.size >= 5 %}
-            <section class="gv2-section">
-                <div class="gv2-title gv2-featured-title">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        Featured
-                    </h2>
-                </div>
-                <div class="gv2-grid gv2-featured">
-                    {% for post in featured_posts %}
-                    <article class="gv2-card {% if forloop.first %}gv2-featured-big{% else %}gv2-featured-small{% endif %}">
-                        <a href="{{ post.url }}" class="gv2-card-link">
-                            {% if post.image %}
-                                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-                            {% endif %}
-                        </a>
-                    </article>
-                    {% endfor %}
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- ========== BANNER 01: SETELAH FEATURED ========== -->
-            <div class="ad-inline">
-                <div class="ad-box ad-desktop">
-                    {% include /ads/banner/01.html %}
-                </div>
-                <div class="ad-box ad-mobile">
-                    {% include /ads/banner/04.html %}
-                </div>
-            </div>
-
-            <!-- ========== LATEST ========== -->
-            {% assign latest_posts = category_posts | slice: 5, 15 %}
-            {% if latest_posts.size > 0 %}
-            <section class="gv2-section">
-                <div class="gv2-title">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        Latest
-                    </h2>
-                </div>
-                <div class="gv2-grid gv2-latest">
-                    {% for post in latest_posts %}
-                    <article class="gv2-card">
-                        <a href="{{ post.url }}" class="gv2-card-link">
-                            {% if post.image %}
-                                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-                            {% endif %}
-                        </a>
-                    </article>
-                    {% endfor %}
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- ========== BANNER 02: SETELAH LATEST ========== -->
-            <div class="ad-inline">
-                <div class="ad-box ad-both">
-                    {% include /ads/banner/02.html %}
-                </div>
-            </div>
-
-            <!-- ========== STORIES ========== -->
-            {% assign stories_posts = category_posts | slice: 20, 12 %}
-            {% if stories_posts.size > 0 %}
-            <section class="gv2-section">
-                <div class="gv2-title">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                        Stories
-                    </h2>
-                </div>
-                <div class="gv2-grid gv2-stories">
-                    {% for post in stories_posts %}
-                    <article class="gv2-card">
-                        <a href="{{ post.url }}" class="gv2-card-link">
-                            {% if post.image %}
-                                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-                            {% endif %}
-                        </a>
-                    </article>
-                    {% endfor %}
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- ========== BANNER 03: SETELAH STORIES ========== -->
-            <div class="ad-inline">
-                <div class="ad-box ad-both">
-                    {% include /ads/banner/03.html %}
-                </div>
-            </div>
-
-            <!-- ========== POPULAR ========== -->
-            {% assign popular_posts = category_posts | slice: 32, 12 %}
-            {% if popular_posts.size > 0 %}
-            <section class="gv2-section">
-                <div class="gv2-title">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        Popular
-                    </h2>
-                </div>
-                <div class="gv2-grid gv2-tutorials">
-                    {% for post in popular_posts %}
-                    <article class="gv2-card">
-                        <a href="{{ post.url }}" class="gv2-card-link">
-                            {% if post.image %}
-                                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-                            {% endif %}
-                        </a>
-                    </article>
-                    {% endfor %}
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- ========== BANNER 08: SETELAH POPULAR ========== -->
-            <div class="ad-inline">
-                <div class="ad-box ad-both">
-                    {% include /ads/banner/08.html %}
-                </div>
-            </div>
-
-            <!-- ========== ARCHIVE ========== -->
-            {% assign archive_posts = category_posts | slice: 44, 6 %}
-            {% if archive_posts.size > 0 %}
-            <section class="gv2-section">
-                <div class="gv2-title">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                        Archive
-                    </h2>
-                </div>
-                <div class="gv2-grid gv2-archive">
-                    {% for post in archive_posts %}
-                    <article class="gv2-card">
-                        <a href="{{ post.url }}" class="gv2-card-link">
-                            {% if post.image %}
-                                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-                            {% endif %}
-                        </a>
-                    </article>
-                    {% endfor %}
-                </div>
-            </section>
-            {% endif %}
-
-        </main>
-
-        <!-- RIGHT SIDEBAR: Banner 05 -->
-        <aside class="sidebar sidebar-right">
-            <div class="sticky-ad">
-                {% include /ads/banner/05.html %}
-            </div>
-        </aside>
-
-    </div>
-
-    <!-- ==================== BANNER 07: BOTTOM ==================== -->
-    <div class="ad-break">
-        <div class="ad-box ad-desktop">
-            {% include /ads/banner/07.html %}
-        </div>
-        <div class="ad-box ad-mobile">
-            {% include /ads/banner/04.html %}
-        </div>
-    </div>
-
-    <!-- AVATAR SCRIPT -->
-    <script>
-    (function() {
-        var hostname = window.location.hostname;
-        var parts = hostname.split(".");
-        var fullName = parts[0];
-        if (fullName.toLowerCase() === "www") fullName = parts[1] || fullName;
-        function h(s) {var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
-        var dh = h(fullName);
-        var clean = fullName.replace(/-/g," ");
-        var w = clean.split(" "), init = "";
-        for (var i=0;i<Math.min(w.length,3);i++){if(w[i].length>0)init+=w[i].charAt(0).toUpperCase();}
-        if(init.length<2)init=fullName.substring(0,3).toUpperCase();
-        document.getElementById("domainAvatar").innerHTML = "<svg width=\"34\" height=\"34\" viewBox=\"0 0 34 34\"><rect width=\"34\" height=\"34\" rx=\"17\" fill=\"hsl("+(dh%360)+",60%,50%)\"/><text x=\"17\" y=\"23\" text-anchor=\"middle\" fill=\"#fff\" font-size=\"14\" font-weight=\"bold\" font-family=\"sans-serif\">"+init+"</text></svg>";
-    })();
-    </script>
-
- 
-    
     {% include /ads/gobloggugel/default.html %}
     {% include footer.html %}
-
-    
 </body>
 </html>
